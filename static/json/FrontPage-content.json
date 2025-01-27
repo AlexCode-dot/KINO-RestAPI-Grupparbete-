@@ -1,0 +1,54 @@
+{
+  "header": {
+    "logoTitle": "Kvikkjokk Kino",
+    "menu": ["FILMER", "BARNBIO", "EVENEMANG", "OM OSS", "LOGGA IN"]
+  },
+  "main": {
+    "searchLabel": "Sök efter film",
+    "searchInput": "Film...",
+    "searchClear": "&#x2715;",
+    "mobileFilterMenu": "Mer filter",
+    "btnToday": "Idag",
+    "btnTomorrow": "Imorgon",
+    "btnOther": "Annan dag",
+    "dropdownGenreAll": "Alla Genre",
+    "dropdownGenreComedy": "Komedi",
+    "dropdownGenreRomance": "Romantik",
+    "dropdownGenreAction": "Action",
+    "dropdownGenreHorror": "Skräck",
+    "dropdownGenreKids": "Barn",
+    "btnShowLess": "Show Less",
+    "btnShowAll": "Show All"
+  },
+  "footer": {
+    "socialTitle": "Sociala Medier",
+    "contactTitle": "Kontakt",
+    "contactInfo": "Kvikkjokk Bio AB",
+    "contactNumber": "+46 (0)971-123 456",
+    "contactMail1": "info@kvikkjokkbio.se",
+    "contactMail2": "bokning@kvikkjokkbio.se",
+    "findUsTitle": "Hitta till oss",
+    "findUsStreetName": "Fjällvägen 12",
+    "findUsPostalCode": "96202 Kvikkjokk",
+    "findUsCountry": "Sverige",
+    "partnersTitle": "Våra sammarbetspartner"
+  },
+  "error": {
+    "loadMovies": "Förlåt, kunde inte ladda filmerna. Försök igen senare!"
+  },
+  "dateFilter": {
+    "dateTitle": "Välj Datum",
+    "month1": "Jan",
+    "month2": "Feb",
+    "month3": "Mars",
+    "month4": "April",
+    "month5": "Maj",
+    "month6": "Juni",
+    "month7": "Juli",
+    "month8": "Aug",
+    "month9": "Sep",
+    "month10": "Oct",
+    "month11": "Nov",
+    "month12": "Dec"
+  }
+}

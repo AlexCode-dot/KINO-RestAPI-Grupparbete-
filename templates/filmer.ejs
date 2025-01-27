@@ -1,0 +1,45 @@
+<% layout('layouts/main') %>
+<div class="search__container">
+  <label class="search__label" for="search"><%= frontPageContent.main.searchLabel %></label>
+  <input class="search__input" type="text" maxlength="60" name="search" placeholder="<%= frontPageContent.main.searchInput %>" />
+  <button class="search__clear" type="button"><%- frontPageContent.main.searchClear %></button>
+</div>
+<button class="mobile__filter-menu"><%= frontPageContent.main.mobileFilterMenu %></button>
+<div class="filter-btn__container">
+  <button class="filter-btn filter-btn--today" type="button"><%= frontPageContent.main.btnToday %></button>
+  <button class="filter-btn filter-btn--tomorrow" type="button"><%= frontPageContent.main.btnTomorrow %></button>
+  <button class="filter-btn filter-btn--other" type="button"><%= frontPageContent.main.btnOther %></button>
+</div>
+<div class="date-filter__wrapper">
+  <ul class="date-filter__list"></ul>
+</div>
+<div class="filter-genre__container">
+  <select class="filter-genre__dropdown">
+    <option value="all" class="filter-genre__dropdown-all"><%= frontPageContent.main.dropdownGenreAll %></option>
+    <option value="Romance" class="filter-genre__dropdown-romance"><%= frontPageContent.main.dropdownGenreRomance %></option>
+    <option value="Action" class="filter-genre__dropdown-action"><%= frontPageContent.main.dropdownGenreAction %></option>
+    <option value="Horror" class="filter-genre__dropdown-horror"><%= frontPageContent.main.dropdownGenreHorror %></option>
+    <option value="Kids" class="filter-genre__dropdown-kids"><%= frontPageContent.main.dropdownGenreKids %></option>
+    <option value="Comedy" class="filter-genre__dropdown-comedy"><%= frontPageContent.main.dropdownGenreComedy %></option>
+  </select>
+</div>
+<ul class="movie__wrapper">
+  <% movies.forEach(movie=> { %>
+    <li class="movie">
+      <a href="/movies/<%= movie.id %>">
+        <% if (movie.image) { %>
+          <img class="movie__image" src="<%= movie.image.url %>" />
+          <% } %>
+            <div class="movie__content">
+              <h2 class="movie__title">
+                <%= movie.title %>
+              </h2>
+            </div>
+      </a>
+    </li>
+    <% }); %>
+</ul>
+<div class="filter-btn__container">
+  <button class="filter-btn__show-less" type="button"><%= frontPageContent.main.btnShowLess %></button>
+  <button class="filter-btn__show-all" type="button"><%= frontPageContent.main.btnShowAll %></button>
+</div>
