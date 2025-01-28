@@ -1,7 +1,7 @@
 {
   "header": {
     "logoTitle": "Kvikkjokk Kino",
-    "menu": ["FILMER", "BARNBIO", "EVENEMANG", "OM OSS", "LOGGA IN"]
+    "menu": ["HEM", "FILMER", "BARNBIO", "EVENEMANG", "OM OSS", "LOGGA IN"]
   },
   "main": {
     "searchLabel": "Sök efter film",

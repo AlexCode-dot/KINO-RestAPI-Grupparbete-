@@ -13,6 +13,14 @@ export default function initApp(api) {
 
   app.get('/', async (request, response, next) => {
     try {
+      await renderPage(response, 'hem')
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  app.get('/filmer', async (request, response, next) => {
+    try {
       const movies = await api.loadMovies()
       await renderPage(response, 'filmer', { movies })
     } catch (err) {
