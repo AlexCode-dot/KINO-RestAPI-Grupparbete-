@@ -6,7 +6,7 @@ export async function getMenu() {
 
   const menu = menuData.map((item) => ({
     label: item,
-    link: item.toLowerCase() === 'filmer' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`,
+    link: item.toLowerCase() === 'hem' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`,
     id: item.toLowerCase().replace(/\s+/g, ''),
   }))
 
