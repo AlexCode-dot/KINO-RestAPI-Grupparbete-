@@ -21,3 +21,21 @@ export async function getFrontPageContent() {
     frontPageImages: JSON.parse(images),
   }
 }
+
+/*
+Denna fil hanterar lokala JSON-filer. (som ligger i static/json)
+Den bearbetar data från just dessa filer
+
+getMenu() Hämtar allt frontpage content. Den implementerar datan
+om menyn från frontPageContent.header.menu där varje objekt i menyn
+är en sträng. 
+
+Den mappar varje menypost och skapar en lista med:
+LABEL menyns text
+LINK Länk som menyalternativet ska leda till
+ID Unikt id för menyposten 
+
+innehåll hämtas till startsidan via 2 JSON filer
+FrontPage-content.json: Innehåller t.ex. texter, menyer, etc.
+FrontPage-images.json: Innehåller data om bilder som ska visas på startsidan.
+*/

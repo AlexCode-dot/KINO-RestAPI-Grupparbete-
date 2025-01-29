@@ -96,3 +96,59 @@ export default function initApp(api) {
 
   return app
 }
+
+/*
+app.js definierar express applikationen
+
+Vi hanterar olika routes och felhantering i denna fil.
+ÖVERST importeras modulerna:
+express: Importerar Express för att skapa en webserver.
+ejs-mate: Ett "engine" för att rendera EJS-vyer med en lättare syntax.
+renderPage: En funktion som renderar olika sidor baserat på mallar.
+filmExists: En funktion för att kolla om en film finns.
+renderErrorPage: En funktion för att hantera fel och visa fel-sidor.
+
+
+INITIERING av applikationen=
+export default function initApp(api) {
+const app = express()  
+
+START av applikationen=
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs')
+app.set('views', './templates') 
+
+ejs används för att rendera HTML-mallar.
+ejs-mate används för att förenkla EJS-syntaxen.
+views mappen ställs in till ./templates, där mallarna ligger.
+
+/: Renderar startsidan (hem).
+/filmer: Hämtar en lista med filmer från API:et och renderar filmer-sidan.
+/movies/:movieId: Hämtar och renderar en specifik film baserat på movieId. 
+Om filmen inte finns, renderas en fel-sida.
+/barnbio: Renderar sidan för barnbio.
+/evenemang: Renderar sidan för evenemang.
+/omoss: Renderar sidan om oss.
+/loggain: Renderar logga in-sidan.
+
+Varje block använder renderPage för att rendera rätt EJS-mall 
+med relevant data (t.ex. filmer eller innehåll).
+
+HANTERING av statiska filer=
+app.use('/static', express.static('./static'))
+Denna serverar statisk data ur mappen ./static
+såsom bilder, css eller js.
+
+TEST-FELS ROUTE som simulerar ett serverfel=
+app.get('/test-error', (request, response, next) => {
+  const error = new Error('Detta är ett avsiktligt testfel.')
+  error.status = 500
+  next(error)
+})
+
+Funktionen initApp returnerar Express-applikationen 
+som kan startas senare.
+För att returnera applikationen anv.
+return app
+
+*/
