@@ -27,3 +27,15 @@
   <button class="filter-btn__show-less" type="button"><%= frontPageContent.main.btnShowLess %></button>
   <button class="filter-btn__show-all" type="button"><%= frontPageContent.main.btnShowAll %></button>
 </div>
+
+<!--Alla ejs filer innehåller kort och gott HTML där man kan anv JS 
+för att infoga dynamiskt innehåll från servern. Man kan skapa loopar och
+if satser i ejs, direkt i htmlen. man kan återanvända delar av HTML. t.ex
+footer och header, om man vill anv dem på olika sidor.
+
+main.ejs måste användas överst i alla filer <% layout('layouts/main') %>
+Det innebär att den här sidan kommer att använda en layout 
+från main EJS-fil som ligger i mappen layouts. 
+Layouten kan till exempel innehålla gemensamma element som header, 
+footer, och sidstruktur mm.
+-->

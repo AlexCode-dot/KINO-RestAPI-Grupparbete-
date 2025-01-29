@@ -58,3 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
   //Display and create modal
   createModal(modalData)
 })
+
+/*
+Min modal poppar upp som en renklöv rakt i burriton 
+på alla stackare som öppnar sidan. Is there any way out? 
+An escape? 
+....Only if you find the kryss in the rightest corner of corners.
+*/

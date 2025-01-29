@@ -212,3 +212,11 @@ async function dateFilter(date) {
     }
   })
 }
+
+/*Denna fil implementerar en interaktiv filtrering för att visa filmer 
+baserat på datumval. De innehåller funktioner för att visa filtermenyer 
+på mobil, skapa datumknappar för ett datumfilter och uppdatera 
+visningen av filmer beroende på vilket datum användaren väljer. 
+Det är en användarvänlig funktion för att ge en dynamisk upplevelse 
+när man söker efter filmer som är tillgängliga på specifika dagar.
+*/
