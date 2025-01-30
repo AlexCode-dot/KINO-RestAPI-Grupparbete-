@@ -1,5 +1,5 @@
 import { describe, expect, jest } from '@jest/globals'
-import { getAllReviewsForMovie, filterRecentReviews } from './reviewsService'
+import { getAllReviewsForMovie, filterRecentReviews, calculateAverageRating } from './reviewsService'
 
 describe('reviewsService', () => {
   beforeAll(() => {
@@ -58,5 +58,23 @@ describe('reviewsService', () => {
     expect(recentReviews).toHaveLength(2)
     expect(recentReviews[0].id).toBe(2)
     expect(recentReviews[1].id).toBe(3)
+  })
+
+  test('calculateAverageRating returns the correct average rating from reviews', () => {
+    const reviews = [
+      { id: 1, rating: 5 },
+      { id: 2, rating: 4 },
+      { id: 3, rating: 3 },
+    ]
+
+    const avgRating = calculateAverageRating(reviews)
+
+    expect(avgRating).toBe(4)
+  })
+
+  test('calculateAverageRating returns 0 for empty reviews', () => {
+    const avgRating = calculateAverageRating([])
+
+    expect(avgRating).toBe(0)
   })
 })
