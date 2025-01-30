@@ -1,6 +1,15 @@
-import { getAllReviewsForMovie } from './reviewsService'
+import { describe, expect, jest } from '@jest/globals'
+import { getAllReviewsForMovie, filterRecentReviews } from './reviewsService'
 
 describe('reviewsService', () => {
+  beforeAll(() => {
+    jest.useFakeTimers()
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   test('getAllReviewsForMovie should fetch and combine reviews from multiple pages', async () => {
     const mockCmsAdapter = {
       loadReviewsForMovie: async (movieId, page) => {
@@ -32,5 +41,22 @@ describe('reviewsService', () => {
       { id: 102, rating: 4 },
       { id: 103, rating: 3 },
     ])
+  })
+
+  test('filterRecentReviews filters out reviews older than 30 days', () => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date(2025, 1, 16))
+
+    const reviews = [
+      { id: 1, createdAt: '2025-01-15T00:00:00.000Z', rating: 5 },
+      { id: 2, createdAt: '2025-01-27T00:00:00.000Z', rating: 4 },
+      { id: 3, createdAt: '2025-02-11T00:00:00.000Z', rating: 3 },
+    ]
+
+    const recentReviews = filterRecentReviews(reviews)
+
+    expect(recentReviews).toHaveLength(2)
+    expect(recentReviews[0].id).toBe(2)
+    expect(recentReviews[1].id).toBe(3)
   })
 })
