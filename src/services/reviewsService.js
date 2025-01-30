@@ -26,3 +26,10 @@ export function filterRecentReviews(reviews) {
     return daysDifference <= 30
   })
 }
+
+export function calculateAverageRating(reviews) {
+  if (reviews.length === 0) return 0
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0)
+  const average = totalRating / reviews.length
+  return parseFloat(average.toFixed(1))
+}
