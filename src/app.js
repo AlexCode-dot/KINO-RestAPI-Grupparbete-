@@ -3,6 +3,8 @@ import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
+import { getTopRatedMoviesByRating } from './services/moviesTopRated.js'
+import cmsAdapter from './services/fetchReviews.js'
 
 export default function initApp(api) {
   const app = express()
@@ -70,6 +72,15 @@ export default function initApp(api) {
   app.get('/loggain', async (request, response, next) => {
     try {
       renderPage(response, 'loggain')
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  app.get('/api/movies/top-rated', async (request, response, next) => {
+    try {
+      const topRated = await getTopRatedMoviesByRating(cmsAdapter, api.loadMovies)
+      response.json(topRated)
     } catch (err) {
       next(err)
     }
