@@ -15,7 +15,7 @@ test('Home page shows list of movies', async () => {
     ],
   })
 
-  const response = await request(app).get('/').expect('Content-Type', /html/).expect(200)
+  const response = await request(app).get('/filmer').expect('Content-Type', /html/).expect(200)
 
   expect(response.text).toMatch('Encanto')
   expect(response.text).toMatch('Fire Walk With Me')
