@@ -17,3 +17,12 @@ export async function getAllReviewsForMovie(cmsAdapter, movieId) {
 
   return reviews
 }
+
+export function filterRecentReviews(reviews) {
+  const now = new Date()
+  return reviews.filter((review) => {
+    const reviewDate = new Date(review.createdAt)
+    const daysDifference = Math.floor((now - reviewDate) / (1000 * 60 * 60 * 24))
+    return daysDifference <= 30
+  })
+}
