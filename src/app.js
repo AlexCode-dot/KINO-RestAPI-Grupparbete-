@@ -3,6 +3,7 @@ import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
+import router from './services/fetchReviews.js'
 
 export default function initApp(api) {
   const app = express()
@@ -76,6 +77,7 @@ export default function initApp(api) {
   })
 
   app.use('/static', express.static('./static'))
+  app.use('/api/reviews', router) //Anslutning av reviews routern
 
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {
