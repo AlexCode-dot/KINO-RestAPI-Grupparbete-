@@ -55,9 +55,9 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   justify-content: center;
-  //align-content: center;
   justify-items: center;
-  //align-items: center;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .screenings__dateContainer {

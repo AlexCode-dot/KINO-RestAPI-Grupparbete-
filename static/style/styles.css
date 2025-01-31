@@ -600,6 +600,8 @@ li.menu-active {
   gap: 2px;
   justify-content: center;
   justify-items: center;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .screenings__dateContainer {
