@@ -1,0 +1,225 @@
+Detta är kanteckningar som jag lagt till för min egen förståelse och lärande. /Ronja
+
+
+error.Handler.js
+/*
+renderErrorPage tar 4 params
+- response ) Detta är Express response-objektet
+som används för att skicka data till klienten (webbläsaren)
+- status ) HTTP-statuskod 404 är för "not found"
+500 är för "server error"
+- errorType ) En sträng som beskriver typen av fel, typ att "sidan
+ej kunde hittas"
+- message ) Meddelande med ytterligare förklaring om felet
+
+
+response.status(status):
+Sätter HTTP-statuskoden för svaret
+
+
+renderPage: Anropar funktionen renderPage,
+som renderar en vy (HTML-sida) med specifika data.
+Här skickar vi med: 'error': Det här är namnet på den vy (EJS-sidan)
+som ska renderas för att visa ett felmeddelande.
+Data: Vi skickar med data som används på fel-sidan: statuskoden, feltypen och meddelandet.
+*/
+----------------------------------------------------------------------
+
+renderPage.js
+/*
+Här renderas en hel vy (HTML sida) baserat på olika typer av
+specifik data.
+
+
+renderPage tar 3 params:
+response: Express response-objektet som används för att
+skicka tillbaka svaret till klienten.
+
+
+page: Namnet på den vy (EJS-sidan) som ska renderas
+(t.ex. "hem", "filmer", "error").
+additionalData (valfri):
+Extra data som kan skickas till vyn,
+t.ex. en lista av filmer eller detaljer för en specifik film.
+
+
+getMenu() och getFrontPageContent():
+hämtar in externa resurser fär startsidan.
+
+
+marked(): Används för att konvertera Markdown-formaterad text
+till HTML. Om en film har en introduktion i Markdown-format
+så konverteras texten innan dem skickas till vyn.
+
+
+response.render() metoden renderar en vy med den angivna datan,
+i detta fall= page-sidan och skickar med:
+menuItems: En lista över alla menyalternativ
+(med etikett, länk och om det ska vara markerat som aktivt).
+frontPageContent och frontPageImages: Innehåll och bilder för startsidan.
+additionalData: Extra data som kan innehålla information om specifika sidor,
+som t.ex. filmer, event eller användarinformation.
+*/
+-------------------------------------------------------------------
+
+fetchMovies.js
+/*
+Denna fil används för att hämta filmer från det ext plankton API:et,
+de bearbetas så att de går att använda i applikationen.
+
+
+function toMovieOIbj omvandlar och inkluderar de attribut
+som finns i apiObject.attributes
+loadMovies() anv fetch för att göra en GET req till plankton API:et och
+när svaret kommer tillbax i JSON format konverteras det via payload till
+js obj. Varje film mappas genom toMovieObj() för att omvandlas och
+slutligen returneras en lista på filmer i NYTT format.
+
+
+loadMovie(id) Hämtar detaljerad info om en film baserat på id
+GET req görs till plankton API:et +id
+JSON svaret omvandlas till js objekt och återvänder
+omformat efter toMovieObj()
+
+
+filmExists(movieId)
+Denna function kontrollerar om en film med ett särskilt movieID finns
+i databasen. loadMovies() HÄMTAR alla filmer och sen kontrolleras
+det om filmen med aktuellt movieId som skickats in, finns.
+Om finns, så returneras True.
+Om ej, så False.
+*/
+
+----------------------------------------------------------------------
+
+loadJson.js
+/*
+Denna fil hanterar lokala JSON-filer. (som ligger i static/json)
+Den bearbetar data från just dessa filer
+
+
+getMenu() Hämtar allt frontpage content. Den implementerar datan
+om menyn från frontPageContent.header.menu där varje objekt i menyn
+är en sträng.
+
+
+Den mappar varje menypost och skapar en lista med:
+LABEL menyns text
+LINK Länk som menyalternativet ska leda till
+ID Unikt id för menyposten
+
+
+innehåll hämtas till startsidan via 2 JSON filer
+FrontPage-content.json: Innehåller t.ex. texter, menyer, etc.
+FrontPage-images.json: Innehåller data om bilder som ska visas på startsidan.
+*/
+
+----------------------------------------------------------------------
+app.js
+
+/*
+app.js definierar express applikationen
+
+
+Vi hanterar olika routes och felhantering i denna fil.
+ÖVERST importeras modulerna:
+express: Importerar Express för att skapa en webserver.
+ejs-mate: Ett "engine" för att rendera EJS-vyer med en lättare syntax.
+renderPage: En funktion som renderar olika sidor baserat på mallar.
+filmExists: En funktion för att kolla om en film finns.
+renderErrorPage: En funktion för att hantera fel och visa fel-sidor.
+
+
+INITIERING av applikationen=
+export default function initApp(api) 
+const app = express()  
+
+
+START av applikationen=
+app.engine('ejs', ejsMate)
+app.set('view engine', 'ejs')
+app.set('views', './templates')
+
+
+ejs används för att rendera HTML-mallar.
+ejs-mate används för att förenkla EJS-syntaxen.
+views mappen ställs in till ./templates, där mallarna ligger.
+
+
+/: Renderar startsidan (hem).
+/filmer: Hämtar en lista med filmer från API:et och renderar filmer-sidan.
+/movies/:movieId: Hämtar och renderar en specifik film baserat på movieId.
+Om filmen inte finns, renderas en fel-sida.
+/barnbio: Renderar sidan för barnbio.
+/evenemang: Renderar sidan för evenemang.
+/omoss: Renderar sidan om oss.
+/loggain: Renderar logga in-sidan.
+
+
+Varje block använder renderPage för att rendera rätt EJS-mall
+med relevant data (t.ex. filmer eller innehåll).
+
+
+HANTERING av statiska filer=
+app.use('/static', express.static('./static'))
+Denna serverar statisk data ur mappen ./static
+såsom bilder, css eller js.
+
+
+TEST-FELS ROUTE som simulerar ett serverfel=
+app.get('/test-error', (request, response, next) => {
+  const error = new Error('Detta är ett avsiktligt testfel.')
+  error.status = 500
+  next(error)
+})
+
+
+Funktionen initApp returnerar Express-applikationen
+som kan startas senare.
+För att returnera applikationen anv.
+return app
+*/
+----------------------------------------------------------------------
+
+server.js
+/*
+Startfil för applikationen/servern.
+Den initierar och startar express-webbservern.
+
+
+loadMovie och loadMovies importeras från fetchMovies.js.
+Dessa funktioner används för att hämta filmer från API:et.
+
+
+initApp importeras från app.js och är funktionen
+som skapar och konfigurerar Express-applikationen.
+
+
+const api = {
+  loadMovie,
+  loadMovies,
+} = Ett API-objekt skapas där både loadMovie och loadMovies
+ placeras. Detta gör att dessa funktioner kan användas
+ i Express-routs när applikationen startar.
+
+
+ INITIERING OCH START=
+const app = initApp(api)
+app.listen(5080)
+
+
+tillgänglig på: http://localhost:5080
+*/
+----------------------------------------------------------------------
+
+UI-dateFilter.js
+/*
+Denna fil implementerar en interaktiv filtrering för att visa filmer
+baserat på datumval. De innehåller funktioner för att visa filtermenyer
+på mobil, skapa datumknappar för ett datumfilter och uppdatera
+visningen av filmer beroende på vilket datum användaren väljer.
+Det är en användarvänlig funktion för att ge en dynamisk upplevelse
+när man söker efter filmer som är tillgängliga på specifika dagar.
+*/
+----------------------------------------------------------------------
+
