@@ -26,7 +26,6 @@ Detta API fungerar som en mellanhand mellan frontend och ett externt CMS. Det ha
 
 **Exempel på request:**
 
-````http
 GET /api/movies/3/screenings
 
 **Exempel på respons (200 OK)**
@@ -41,6 +40,7 @@ GET /api/movies/3/screenings
     }
   ]
 }
+```
 
 ### 2. Hämta recensioner för en film
 
@@ -50,14 +50,13 @@ GET /api/movies/3/screenings
 
 #### Query-parametrar
 
-| Parameter  | Typ    | Beskrivning               |
-|------------|--------|---------------------------|
-| `page`     | Number | Sidnummer för paginering  |
-| `pageSize` | Number | Antal recensioner per sida|
+| Parameter  | Typ    | Beskrivning                |
+| ---------- | ------ | -------------------------- |
+| `page`     | Number | Sidnummer för paginering   |
+| `pageSize` | Number | Antal recensioner per sida |
 
 **Exempel på request:**
 
-```http
 GET /api/movies/3/reviews?page=1&pageSize=5
 
 **Exempel på respons (200 OK)**
@@ -77,6 +76,7 @@ GET /api/movies/3/reviews?page=1&pageSize=5
     "totalPages": 3
   }
 }
+```
 
 ### 3. Skicka en recension för en film
 
@@ -86,15 +86,14 @@ GET /api/movies/3/reviews?page=1&pageSize=5
 
 #### Request Body
 
-| Parameter  | Typ    | Beskrivning                  |
-|------------|--------|------------------------------|
-| `rating`   | Number | Betyget för filmen (1-5)     |
-| `comment`  | String | Kommentar om filmen          |
-| `author`   | String | Namn                         |
+| Parameter | Typ    | Beskrivning              |
+| --------- | ------ | ------------------------ |
+| `rating`  | Number | Betyget för filmen (1-5) |
+| `comment` | String | Kommentar om filmen      |
+| `author`  | String | Namn                     |
 
 **Exempel på request:**
 
-```http
 POST /api/movies/3/reviews
 Content-Type: application/json
 
@@ -104,6 +103,7 @@ Content-Type: application/json
   "comment": "string",
   "author": "string"
 }
+```
 
 **Exempel på respons (201 Created)**
 
@@ -111,7 +111,7 @@ Content-Type: application/json
 {
   "message": "Review submitted successfully"
 }
-
+```
 
 ### 4. Hämta betyg för en film
 
@@ -121,7 +121,6 @@ Content-Type: application/json
 
 **Exempel på request:**
 
-```http
 GET /api/movies/3/rating
 
 **Exempel på respons (200 OK)**
@@ -130,6 +129,7 @@ GET /api/movies/3/rating
 {
   "average_rating": 4.8
 }
+```
 
 **Logik**
 
@@ -144,7 +144,6 @@ GET /api/movies/3/rating
 
 **Exempel på request:**
 
-```http
 GET /api/screenings/upcoming
 
 **Exempel på respons (200 OK)**
@@ -161,6 +160,7 @@ GET /api/screenings/upcoming
     }
   ]
 }
+```
 
 **Logik**
 
@@ -175,7 +175,6 @@ GET /api/screenings/upcoming
 
 **Exempel på request:**
 
-```http
 GET /api/movies/top-rated
 
 **Exempel på respons (200 OK)**
@@ -191,9 +190,9 @@ GET /api/movies/top-rated
     }
   ]
 }
+```
 
 **Logik**
 
 - Backend filtrerar recensioner från de senaste 30 dagarna.
 - Filmer som inte har några betyg exluderas helt från listan.
-````
