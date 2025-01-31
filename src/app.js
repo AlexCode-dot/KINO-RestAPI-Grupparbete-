@@ -3,8 +3,7 @@ import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
-import { getTopRatedMoviesByRating } from './services/moviesTopRated.js'
-import cmsAdapter from './services/fetchReviews.js'
+import apiRoutes from './routes/apiRoutes.js'
 
 export default function initApp(api) {
   const app = express()
@@ -77,15 +76,7 @@ export default function initApp(api) {
     }
   })
 
-  app.get('/api/movies/top-rated', async (request, response, next) => {
-    try {
-      const topRated = await getTopRatedMoviesByRating(cmsAdapter, api.loadMovies)
-      response.json(topRated)
-    } catch (err) {
-      next(err)
-    }
-  })
-
+  app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
 
   // Testfel route för 500

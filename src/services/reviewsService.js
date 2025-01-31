@@ -8,10 +8,11 @@ export async function getAllReviewsForMovie(cmsAdapter, movieId) {
   reviews.push(...firstPage.data)
 
   const totalPages = firstPage.meta.pagination.pageCount
+  const pageSize = firstPage.meta.pagination.pageSize
 
   while (currentPage < totalPages) {
     currentPage++
-    const reviewsPage = await cmsAdapter.loadReviewsForMovie(movieId, currentPage)
+    const reviewsPage = await cmsAdapter.loadReviewsForMovie(movieId, currentPage, pageSize)
     reviews.push(...reviewsPage.data)
   }
 
