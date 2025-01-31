@@ -3,7 +3,7 @@ import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
-import router from './services/fetchReviews.js'
+import apiRoutes from './routes/apiRoutes.js'
 
 export default function initApp(api) {
   const app = express()
@@ -76,6 +76,7 @@ export default function initApp(api) {
     }
   })
 
+  app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
   app.use('/api/reviews', router) //Anslutning av reviews routern
 
@@ -93,6 +94,13 @@ export default function initApp(api) {
   app.use((err, request, response, next) => {
     console.error('Ett serverfel inträffade:', err)
     const status = err.status || 500
+
+    if (request.originalUrl.startsWith('/api/')) {
+      return response.status(status).json({
+        error: 'Ett oväntat fel inträffade. Försök igen senare.',
+        status,
+      })
+    }
     renderErrorPage(response, status, 'Tekniskt fel', 'Ett oväntat fel inträffade. Försök igen senare.')
   })
 

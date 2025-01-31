@@ -1,54 +1,28 @@
-// Detta är min routes fil för att hämta reviews från plankton API:et.
-import express from 'express'
-import fetch from 'node-fetch' //Fetch är inte inbyggt i Node.js så den måste importeras
+import fetch from 'node-fetch'
 
-/* import axios from 'axios'; //Var en tanke... då Axios gör det enklare att hämta data från externa api än med JS fetch (som förväntas i uppg), 
-Fetch kräver mer kod och hantering för samma resultat. Det är inbyggt i JavaScript medan Axios måste importeras som ett extern bibliotek.
-fetch hanterar inte automatisk JSON-omvandling, men Axios gör det. Å fetch kräver mer kod för felhantering */
-
-const router = express.Router() //Router instans
-
-//Definierar get router för "/", Hämtar recensioner m paginering
-router.get('/', async (req, res) => {
-  try {
-    const { page = 1, movieId } = req.query
-    const pageSize = 5
-
-    let apiUrl = `https://plankton-app-xhkom.ondigitalocean.app/api/reviews?pagination[page]=${page}&pagination[pageSize]=${pageSize}`
-
-    if (movieId) {
-      apiUrl += `&filters[movie]=${movieId}`
-    }
-
-    const response = await fetch(apiUrl)
-
-    //Eftersom fetch förväntas måste jag kontrollera om förfrågan lyckats
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
-    }
-    //Eftersom fetch förväntas måste jag oxå omvandla till json
-    const data = await response.json()
-
-    //Finns några recensioner öht?
-    if (!data.data || data.data.length === 0) {
-      return res.json({ message: 'No reviews available, be the first to review!' })
-    }
-
-    //Sortering av recensioner Högst->lägre
-    const sortedReviews = data.data
-      .map((review) => ({
-        id: review.id,
-        ...review.attributes,
-      }))
-      .filter((review) => review.rating !== undefined) // Se till att rating finns
-      .sort((a, b) => b.rating - a.rating)
-
-    //samt ställa in att datan skickas som json
-    res.json(sortedReviews.slice(0, 5))
-  } catch (error) {
-    console.error('Error fetching reviews', error.message)
-    res.status(500).json({ error: 'Failed to fetch reviews' })
+function toReviewObject(apiObject) {
+  return {
+    id: apiObject.id,
+    ...apiObject.attributes,
   }
-})
+}
 
-export default router //Exporterar routern så att det kan användas i serverfilen
+const cmsAdapter = {
+  loadReviewsForMovie: async (movieId, page, pageSize) => {
+    let apiUrl = `https://plankton-app-xhkom.ondigitalocean.app/api/reviews?filters[movie]=${movieId}&pagination[page]=${page}`
+
+    if (pageSize) {
+      apiUrl += `&pagination[pageSize]=${pageSize}`
+    }
+
+    const res = await fetch(apiUrl)
+    const payload = await res.json()
+
+    return {
+      data: payload.data.map(toReviewObject),
+      meta: payload.meta,
+    }
+  },
+}
+
+export default cmsAdapter
