@@ -29,8 +29,22 @@ router.get('/', async (req, res) => {
     //Eftersom fetch förväntas måste jag oxå omvandla till json
     const data = await response.json()
 
+    //Finns några recensioner öht?
+    if (!data.data || data.data.length === 0) {
+      return res.json({ message: 'No reviews available, be the first to review!' })
+    }
+
+    //Sortering av recensioner Högst->lägre
+    const sortedReviews = data.data
+      .map((review) => ({
+        id: review.id,
+        ...review.attributes,
+      }))
+      .filter((review) => review.rating !== undefined) // Se till att rating finns
+      .sort((a, b) => b.rating - a.rating)
+
     //samt ställa in att datan skickas som json
-    res.json(data)
+    res.json(sortedReviews.slice(0, 5))
   } catch (error) {
     console.error('Error fetching reviews', error.message)
     res.status(500).json({ error: 'Failed to fetch reviews' })
