@@ -78,7 +78,6 @@ export default function initApp(api) {
 
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
-  app.use('/api/reviews', router) //Anslutning av reviews routern
 
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {

@@ -14,5 +14,15 @@ export default function apiRoutes(api) {
     }
   })
 
+  //Hämta senaste recensionerna
+  router.get('/reviews/latest', async (request, response, next) => {
+    try {
+      const latestReviews = await cmsAdapter.loadReviewsForMovie(null, 1, 5)
+      response.json(latestReviews.data)
+    } catch (err) {
+      next(err)
+    }
+  })
+
   return router
 }
