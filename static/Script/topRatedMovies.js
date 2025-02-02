@@ -42,12 +42,12 @@ async function createtopRatedMovies(movies) {
     movieTitle.textContent = movie.title
     movieLink.appendChild(movieTitle)
 
+    const stars = createStars(movie.averageRating)
+    movieLink.appendChild(stars)
+
     const movieRating = document.createElement('p')
     movieRating.classList.add('top-rated__movie-rating')
     movieRating.textContent = movie.averageRating
     movieLink.appendChild(movieRating)
-
-    const stars = createStars(movie.averageRating)
-    movieLink.appendChild(stars)
   })
 }
