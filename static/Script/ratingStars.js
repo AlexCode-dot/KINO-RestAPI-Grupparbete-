@@ -7,7 +7,7 @@ function createStarElement(type) {
 
 function calculateStarRating(rating) {
   const fullStars = Math.floor(rating)
-  const halfStar = rating - fullStars >= 0.3
+  const halfStar = rating - fullStars >= 0.25
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0)
   return { fullStars, halfStar, emptyStars }
 }

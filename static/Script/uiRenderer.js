@@ -1,28 +1,6 @@
 import { createStars } from './ratingStars.js'
 
-document.addEventListener('DOMContentLoaded', async () => {
-  if (window.location.pathname !== '/') {
-    return
-  }
-
-  try {
-    const response = await fetch('/api/movies/top-rated')
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error)
-    }
-
-    const topRatedMovies = await response.json()
-    createtopRatedMovies(topRatedMovies)
-  } catch (error) {
-    console.error('Fel vid hämtning av filmer med högst betyg:', error.message)
-  }
-})
-
-async function createtopRatedMovies(movies) {
-  const moviesContainer = document.querySelector('.top-rated__container')
-
+export async function createMovies(movies, moviesContainer) {
   movies.forEach((movie) => {
     const movieElement = document.createElement('li')
     movieElement.classList.add('top-rated__movie')
@@ -50,4 +28,8 @@ async function createtopRatedMovies(movies) {
     movieRating.textContent = movie.averageRating
     movieLink.appendChild(movieRating)
   })
+}
+
+export function displayEmptyMessage(message, container) {
+  container.textContent = message
 }
