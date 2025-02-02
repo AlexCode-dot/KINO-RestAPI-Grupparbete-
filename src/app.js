@@ -4,6 +4,7 @@ import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
+import { getScreeningsForMovies } from './services/screeningsService.js'
 
 export default function initApp(api) {
   const app = express()
@@ -14,7 +15,8 @@ export default function initApp(api) {
 
   app.get('/', async (request, response, next) => {
     try {
-      await renderPage(response, 'hem')
+      const screenings = await getScreeningsForMovies()
+      await renderPage(response, 'hem', { screenings })
     } catch (err) {
       next(err)
     }
@@ -78,6 +80,7 @@ export default function initApp(api) {
 
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
+  app.use('/static/Script', express.static('./static/Script'))
 
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {
