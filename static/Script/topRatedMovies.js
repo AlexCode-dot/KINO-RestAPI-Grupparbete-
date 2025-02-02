@@ -1,3 +1,5 @@
+import { createStars } from './ratingStars.js'
+
 document.addEventListener('DOMContentLoaded', async () => {
   if (window.location.pathname !== '/') {
     return
@@ -44,5 +46,8 @@ async function createtopRatedMovies(movies) {
     movieRating.classList.add('top-rated__movie-rating')
     movieRating.textContent = movie.averageRating
     movieLink.appendChild(movieRating)
+
+    const stars = createStars(movie.averageRating)
+    movieLink.appendChild(stars)
   })
 }

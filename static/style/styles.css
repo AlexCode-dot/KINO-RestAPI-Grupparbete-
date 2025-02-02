@@ -633,6 +633,74 @@ li.menu-active {
   height: 20rem;
 }
 
+.top-rated {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.top-rated__title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.top-rated__container {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  padding: 15px;
+  margin: 0;
+  overflow-x: scroll;
+}
+.top-rated__movie {
+  border-radius: 10px;
+  background-color: #012840;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.top-rated__movie:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.top-rated__movie a {
+  text-decoration: none;
+}
+.top-rated__movie-image {
+  border-radius: 10px 10px 0px 0px;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+}
+.top-rated__movie-title {
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+.top-rated__movie-rating {
+  color: white;
+  text-align: center;
+  margin-bottom: 0;
+}
+.top-rated__movie-stars {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.top-rated__movie-star {
+  font-size: 30px;
+  color: #52b3d9;
+}
+.top-rated__movie-star.empty {
+  color: #e0e0e0;
+}
+.top-rated__movie-star.filled {
+  color: #52b3d9;
+}
+.top-rated__movie-star.half {
+  background: linear-gradient(to right, #52b3d9 50%, #e0e0e0 50%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 body {
   background-repeat: no-repeat;
   background-attachment: fixed;
