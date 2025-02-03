@@ -1,6 +1,5 @@
 import screeningAdapter from './fetchScreenings.js'
 
-/*
 export async function getScreeningsForMovies(screeningAdapter, movieIds = []) {
   let screenings = []
 
@@ -13,7 +12,6 @@ export async function getScreeningsForMovies(screeningAdapter, movieIds = []) {
     screenings = response.flatMap((response) => response.data)
   }
 }
-  */
 
 export async function getScreeningsForNextFiveDays(screeningAdapter) {
   const screenings = []
