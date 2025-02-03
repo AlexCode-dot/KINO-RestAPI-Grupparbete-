@@ -1,4 +1,4 @@
-fetch('/api/movies/screenings')
+fetch('/api/movies/screenings/next-five-days')
   .then((response) => {
     if (!response.ok) {
       throw new Error('Network response was not ok')
