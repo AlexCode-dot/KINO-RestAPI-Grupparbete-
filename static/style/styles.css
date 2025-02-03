@@ -789,19 +789,19 @@ footer {
 
 .rating {
   margin-top: 20px;
-  margin-right: 75px;
+  margin-right: 73px;
 }
 
 .rating__dropDown {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #36d;
-  text-align: center;
-  width: 130px;
+  width: auto;
   height: 30px;
-  border: 1px solid #555;
+  border: 1px solid #fff;
   border-radius: 5px;
   background-color: #eee;
   font-family: verdana;
+  text-align: center;
 }
 
 .submit-button {
