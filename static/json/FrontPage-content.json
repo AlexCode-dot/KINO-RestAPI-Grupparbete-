@@ -50,5 +50,8 @@
     "month10": "Oct",
     "month11": "Nov",
     "month12": "Dec"
+  },
+  "hem": {
+    "topRatedTitle": "Populäraste filmer just nu"
   }
 }
