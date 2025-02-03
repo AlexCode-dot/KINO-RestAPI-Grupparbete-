@@ -5,6 +5,7 @@ import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
 import { getScreeningsForMovies } from './services/screeningsService.js'
+import screeningAdapter from './services/fetchScreenings.js'
 
 export default function initApp(api) {
   const app = express()
@@ -15,7 +16,7 @@ export default function initApp(api) {
 
   app.get('/', async (request, response, next) => {
     try {
-      const screenings = await getScreeningsForMovies()
+      const screenings = await getScreeningsForMovies(screeningAdapter)
       await renderPage(response, 'hem', { screenings })
     } catch (err) {
       next(err)

@@ -25,6 +25,14 @@ const screeningAdapter = {
       meta: payload.meta,
     }
   },
+  loadAllScreenings: async () => {
+    const res = await fetch(`https://plankton-app-xhkom.ondigitalocean.app/api/screenings?populate=movie`)
+    const payload = await res.json()
+    return {
+      data: payload.data.map(toScreeningObject),
+      meta: payload.meta,
+    }
+  },
 }
 
 export default screeningAdapter

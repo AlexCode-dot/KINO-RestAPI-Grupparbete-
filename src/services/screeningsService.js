@@ -2,13 +2,13 @@ import screeningAdapter from './fetchScreenings.js'
 
 export async function getScreeningsForMovies(screeningAdapter, movieIds = []) {
   let screenings = []
-  const fetchPromises = movieIds.map((movieId) => screeningAdapter.loadScreeningsForMovie(movieId))
+
   if (movieIds.length === 0) {
-    console.log('No movies provided, returning empty array)')
+    const response = await screeningAdapter.loadAllScreenings()
+    return response.data
   } else {
+    const fetchPromises = movieIds.map((movieId) => screeningAdapter.loadScreeningsForMovie(movieId))
     const response = await Promise.all(fetchPromises)
     screenings = response.flatMap((response) => response.data)
   }
-
-  return screenings
 }

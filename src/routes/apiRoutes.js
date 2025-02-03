@@ -19,8 +19,7 @@ export default function apiRoutes(api) {
 
   router.get('/movies/screenings', async (request, response, next) => {
     try {
-      const movieIds = request.query.movieId ? request.query.movieId.split(',') : []
-      const screenings = await getScreeningsForMovies(screeningAdapter, movieIds)
+      const screenings = await getScreeningsForMovies(screeningAdapter, [])
       response.json(screenings)
     } catch (err) {
       next(err)
