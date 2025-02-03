@@ -7,4 +7,7 @@ const api = {
 }
 
 const app = initApp(api)
-app.listen(5080)
+
+app.listen(5080, () => {
+  console.log('Server running on http://localhost:5080')
+})

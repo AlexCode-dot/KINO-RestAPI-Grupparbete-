@@ -196,3 +196,6 @@ GET /api/movies/top-rated
 
 - Backend filtrerar recensioner från de senaste 30 dagarna.
 - Filmer som inte har några betyg exluderas helt från listan.
+  kommando för att frigöra porten: npx kill-port 5080
+
+Enkel dokumentation för ert API (samtliga resurser/metoder) ska finnas i README.md
