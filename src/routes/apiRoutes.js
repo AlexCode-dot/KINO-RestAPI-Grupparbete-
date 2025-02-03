@@ -1,6 +1,8 @@
 import express from 'express'
 import { getTopRatedMoviesByRating } from '../services/moviesTopRated.js'
 import cmsAdapter from '../services/fetchReviews.js'
+import { getScreeningsForNextFiveDays } from '../services/screeningsService.js'
+import screeningAdapter from '../services/fetchScreenings.js'
 
 const router = express.Router()
 
