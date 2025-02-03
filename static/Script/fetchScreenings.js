@@ -1,7 +1,4 @@
-let movieId = ''
-const queryString = movieId ? `?movieId=${movieId}` : ''
-
-fetch(`/api/movies/screenings${queryString}`)
+fetch('/api/movies/screenings')
   .then((response) => {
     if (!response.ok) {
       throw new Error('Network response was not ok')
@@ -9,15 +6,21 @@ fetch(`/api/movies/screenings${queryString}`)
     return response.json()
   })
   .then((screenings) => {
-    console.log('Received all screenings:', screenings)
-    document.querySelector('.screenings-list').innerHTML = screenings
-      .map((screening) => {
-        return `<li>
-        ${screening.movie.title} - 
-        Date: ${screening.start_time}, 
-        Room: ${screening.room || 'N/A'}
-      </li>`
-      })
-      .join('')
+    console.log('Received screenings for next five days:', screenings)
+    if (screenings.length === 0) {
+      document.querySelector('.screening-list').innerHTML = '<li>No screenings found</li>'
+    } else {
+      const limitedScreenings = screenings.slice(0, 10)
+      document.querySelector('.screenings-list').innerHTML = limitedScreenings
+        .map((screening) => {
+          return `<li>
+          ${screening.movie.title} - 
+          Date: ${new Date(screening.start_time).toLocaleDateString()}, 
+          Time: ${new Date(screening.start_time).toLocaleTimeString()}, 
+          Room: ${screening.room || 'N/A'}
+        </li>`
+        })
+        .join('')
+    }
   })
-  .catch((error) => console.error('Error fetching all screenings:', error))
+  .catch((error) => console.error('Error fetching screenings:', error))

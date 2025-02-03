@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import { getScreeningsForNextFiveDays } from './screeningsService.js'
 
 function toScreeningObject(apiObjekt) {
   return {
@@ -14,6 +15,17 @@ function toScreeningObject(apiObjekt) {
 }
 
 const screeningAdapter = {
+  loadScreeningsForDate: async (formattedDate) => {
+    const res = await fetch(
+      `https://plankton-app-xhkom.ondigitalocean.app/api/screenings?populate=movie&filters[start_time][$gte]=${formattedDate}T00:00:00.000Z&filters[start_time][$lt]=${formattedDate}T23:59:59.999Z`
+    )
+    const payload = await res.json()
+    return {
+      data: payload.data.map(toScreeningObject),
+      meta: payload.meta,
+    }
+  },
+
   loadScreeningsForMovie: async (movieId) => {
     const res = await fetch(
       `https://plankton-app-xhkom.ondigitalocean.app/api/screenings?populate=movie&filters[movie]=${movieId}`
