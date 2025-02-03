@@ -14,5 +14,24 @@ export default function apiRoutes(api) {
     }
   })
 
+  /*
+  router.get('/movies/screenings', async (request, response, next) => {
+    try {
+      const screenings = await getScreeningsForMovies(screeningAdapter, [])
+      response.json(screenings)
+    } catch (err) {
+      next(err)
+    }
+  })
+*/
+  router.get('/movies/screenings/next-five-days', async (request, response, next) => {
+    try {
+      const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
+      response.json(screenings)
+    } catch (err) {
+      next(err)
+    }
+  })
+
   return router
 }
