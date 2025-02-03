@@ -1,38 +1,59 @@
 <% layout('layouts/main') %>
-<div class="top__movieTitle">
-  <h1>
-    <%= movie.title %>
-  </h1>    
-</div>
-<div class="singleMovie__main">
-  <div class="singleMovie__leftContainer">  
-     <div class="singleMovie__main-poster">
-       <% if (movie.image) { %>
-         <img src="<%= movie.image.url %>">
-         <% } %>
+  <div class="top__movieTitle">
+    <h1>
+      <%= movie.title %>
+    </h1>
+  </div>
+  <div class="singleMovie__main">
+    <div class="singleMovie__leftContainer">
+      <div class="singleMovie__main-poster">
+        <% if (movie.image) { %>
+          <img src="<%= movie.image.url %>">
+          <% } %>
+      </div>
+    </div>
+
+    <div class="singleMovie__rightContainer">
+      <div class="singleMovie__main-info">
+        <div class="singleMovie__main-rating">Rating: 5</div>
+        <div class="singleMovie__main-description">
+          <h3>Handling:</h3> <%- movie.intro %>
+        </div>
+      </div>
+      <div class="singleMovie__main-screenings">
+        <h2>Kommande visningar</h2>
+        <div class="singleMovie__screenings">
+          THIS WILL CONTAIN UPPCOMMING SCREENINGS
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="singleMovie__rightContainer">
-     <div class="singleMovie__main-info">
-       <div class="singleMovie__main-rating">Rating: 5</div>
-       <div class="singleMovie__main-description"><h3>Handling:</h3> <%- movie.intro %></div>    
-     </div>
-     <div class="singleMovie__main-screenings">
-       <h2>Kommande visningar</h2>
-       <div class="singleMovie__screenings">
-         THIS WILL CONTAIN UPPCOMMING SCREENINGS
-       </div>
-     </div>
+  <div class="singleMovie__reviews">
+    <h1>Recensioner</h1>
+    <div class="singleMovie__reviewContainer">THIS WILL CONTAIN UPPCOMMING REVIEWS</div>
   </div>
-</div>
 
-<div class="singleMovie__reviews">
-  <h1>Recensioner</h1>
-  <div class="singleMovie__reviewContainer">THIS WILL CONTAIN UPPCOMMING REVIEWS</div>
-</div>
-
-<div class="singleMovie__addReviews">
-  <h1>Skriv en recension</h1>
-  <div class="singleMovie__addReviewsContainer">THIS WILL CONTAIN INPUT FOR USER TO ADD REVIEW</div>
-</div>
+  <form class="singleMovie__addReviews">
+    <h1>Skriv en recension</h1>
+    
+      <div class="singleMovie__addReviews__label-name-review-container">
+        <label class="name-label">Ditt namn:</label>
+      <input class="name-field" type="text" minlength="3" maxlength="30">
+      </div>
+  
+      <div class="rating">
+        <label class="rating__label">Ditt betyg:</label>
+        <select class="rating__dropDown">
+          <option value="rating__1" class="star">&#9733;</option>
+          <option value="rating__2" class="star">&#9733;&#9733;</option>
+          <option value="rating__3" class="star">&#9733;&#9733;&#9733;</option>
+          <option value="rating__4" class="star">&#9733;&#9733;&#9733;&#9733;</option>
+          <option value="rating__5" class="star">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+        </select>
+      </div>
+    
+    
+    <textarea class="singleMovie__addReviewsContainer" maxlength="2500" placeholder="Skriv din recension här"></textarea>
+    <button class="submit-button" type="submit">Skicka in</button>
+  </form>
