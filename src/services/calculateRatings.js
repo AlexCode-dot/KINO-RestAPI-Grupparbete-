@@ -5,8 +5,8 @@ export async function calculateAverageRating(movieId) {
   const ratings = reviews.data.map((review) => review.rating)
   const totalRatings = ratings.reduce((acc, rating) => acc + rating, 0)
   const averageRating = ratings.length ? totalRatings / ratings.length : 0
-  const debug = true
-  if (debug === false) {
+  const debug = false
+  if (debug === true) {
     console.log(`Reviews: ${ratings}`)
     console.log(`Average rating for movie ${movieId}: ${averageRating}`)
   }
