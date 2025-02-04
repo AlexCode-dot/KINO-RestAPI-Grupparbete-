@@ -11,6 +11,8 @@ export async function getScreeningsForMovies(screeningAdapter, movieIds = []) {
     const response = await Promise.all(fetchPromises)
     screenings = response.flatMap((response) => response.data)
   }
+
+  return screenings
 }
 
 export async function getScreeningsForNextFiveDays(screeningAdapter) {
