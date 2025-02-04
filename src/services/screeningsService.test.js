@@ -1,13 +1,14 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, jest } from '@jest/globals'
 import { getScreeningsForMovies, getScreeningsForNextFiveDays } from './screeningsService.js'
 
-function mockScreening(idNr, movieId = 101) {
+function mockScreening(screeningId, movieId) {
   return {
-    id: idNr,
+    id: screeningId,
     start_time: '2025-02-13T17:00:00.000Z',
+    room: 'Stora salongen',
     movie: {
       id: movieId,
-      title: 'Movie title',
+      title: 'Fire Walk With Me',
     },
   }
 }
@@ -16,27 +17,34 @@ describe('getScreeningsForMovies', () => {
   it('should fetch all screenings if no movie ID is provided', async () => {
     const screeningAdapter = {
       loadAllScreenings: async () => ({
-        data: [mockScreening(1), mockScreening(2)],
+        data: [mockScreening(1, 3), mockScreening(2, 84)],
       }),
-      loadScreeningsForMovie: () => {
-        throw new Error('Should not be called')
-      },
     }
 
     const screenings = await getScreeningsForMovies(screeningAdapter)
     expect(screenings).toHaveLength(2)
-    expect(screenings).toContainEqual(mockScreening(1))
-    expect(screenings).toContainEqual(mockScreening(2))
+    expect(screenings).toContainEqual(mockScreening(1, 3))
+    expect(screenings).toContainEqual(mockScreening(2, 84))
   })
 
-  /* it ('should fetch screenings for specific movie-ID', async () => {
-
-    })
-
-    it ('should fetch screenings for specific movie-ID', async () => {
-        
-    })*/
+  it('should fetch screenings for specific movie-ID', async () => {
+    const movieId = 101
+    const screeningAdapter = {
+      loadScreeningsForMovie: async (movieId) => ({
+        data: [
+          mockScreening(1, movieId),
+          mockScreening(2, movieId),
+          mockScreening(3, movieId),
+          mockScreening(4, movieId),
+        ],
+      }),
+    }
+    const screenings = await getScreeningsForMovies(screeningAdapter, [movieId])
+    expect(screenings).toHaveLength(4)
+    expect(screenings).toContainEqual(mockScreening(3, movieId))
+  })
 })
+
 /*
 describe('getScreeningForNextFiveDays', () => {
     beforeEach(() => {
