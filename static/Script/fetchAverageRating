@@ -12,7 +12,7 @@ function averageRatingTest() {
 async function displayAverageRating(movieId) {
   const averageRating = await fetchAverageRating(movieId);
   const ratingContainer = document.querySelector(`.singleMovie__main-rating`);
-  ratingContainer.textContent = `Average movie rating: ${averageRating}`;
+  ratingContainer.textContent = `Average movie rating: ${averageRating.toFixed(1)}`;
   console.log(ratingContainer.textContent);
 }
 console.log('fetchAverageRating loaded');
