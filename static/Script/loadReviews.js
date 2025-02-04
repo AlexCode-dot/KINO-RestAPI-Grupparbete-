@@ -1,5 +1,3 @@
-import fetch from 'node-fetch' //MÖjliggör fetch i node.js miljöer
-
 //Hämtar recensioner för en viss film eller de senaste recensionerna generellt
 let currentPage = 1 //Aktuell sida
 const pageSize = 5 //Max antal recensioner/sida
@@ -17,7 +15,7 @@ if (!movieId) {
  en specifik film (movieId), sida (page), och antal recensioner per sida (pageSize).
 Returnerar recensionerna (reviews) och metadata (meta) som behövs för paginering*/
 async function loadReviewsForMovie(movieId, page, pageSize) {
-  const apiUrl = `/api/movies/${movieId}/reviews?page=${page}&pageSize=${pageSize}`
+  const apiUrl = `/api/movies/reviews/${movieId}?page=${page}&pageSize=${pageSize}`
   console.log('API URL:', apiUrl)
 
   try {
@@ -110,19 +108,19 @@ function renderReviews(reviews) {
 }
 
 // Funktion: Uppdatera status för pagineringsknappar, Aktivering eller inaktivering beroende på villkor om fler sidor
-function updatePaginationButtons(hasMore) {
-  const prevBtn = document.getElementById('prevBtn')
-  const nextBtn = document.getElementById('nextBtn')
-  const paginationInfo = document.getElementById('pagination-info')
+// function updatePaginationButtons(hasMore) {
+//   const prevBtn = document.getElementById('prevBtn')
+//   const nextBtn = document.getElementById('nextBtn')
+//   const paginationInfo = document.getElementById('pagination-info')
 
-  prevBtn.disabled = currentPage === 1
-  nextBtn.disabled = !hasMore //hasMore är false
+//   prevBtn.disabled = currentPage === 1
+//   nextBtn.disabled = !hasMore //hasMore är false
 
-  paginationInfo.textContent = `Sida ${currentPage}`
-}
+//   paginationInfo.textContent = `Sida ${currentPage}`
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadReviews(movieId)
+  loadReviewsForMovie(movieId, 1, 5)
 
   document.getElementById('prevBtn').addEventListener('click', () => {
     if (currentPage > 1) {

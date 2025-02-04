@@ -35,9 +35,9 @@ export default function apiRoutes(api) {
     }
   })
 
-  //Detta ör backend-routern.
+  //Detta är backend-routern.
   //Hämtar filmreviews, express route för hantering av GET begäran efter paginerade recensioner, för EN specifik film med unikt Id.
-  router.get('/movies/:movieId/reviews', async (req, res, next) => {
+  router.get('/movies/reviews/:movieId', async (req, res, next) => {
     const { movieId } = req.params
     const page = parseInt(req.query.page) || 1
     const pageSize = parseInt(req.query.pageSize) || 5
