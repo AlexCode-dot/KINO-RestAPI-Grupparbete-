@@ -8,7 +8,7 @@ fetch('/api/movies/screenings/next-five-days')
   .then((screenings) => {
     console.log('Received screenings for next five days:', screenings)
     if (screenings.length === 0) {
-      document.querySelector('.screening-list').innerHTML = '<li>No screenings found</li>'
+      document.querySelector('.screenings-list').innerHTML = '<li>No screenings found</li>'
     } else {
       const limitedScreenings = screenings.slice(0, 10)
       document.querySelector('.screenings-list').innerHTML = limitedScreenings
