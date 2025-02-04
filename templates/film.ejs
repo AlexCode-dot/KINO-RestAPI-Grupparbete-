@@ -29,43 +29,16 @@
 
 <div class="singleMovie__reviews">
   <h1>Recensioner</h1>
+
   <div id="reviews-container" class="singleMovie__reviewContainer">
     <p>Laddar recensioner...</p>
+    <div id="pagination" class="pagination">
+      <button id="prevBtn" disabled>Föregående</button>
+      <span id="pagination-info">Sida 1</span>
+      <button id="nextBtn">Nästa</button>
+    </div>
   </div>
-  <script>
-    
-    document.addEventListener("DOMContentLoaded", async () => {
-      const reviewsContainer = document.querySelector("#reviews-container");
-      const movieId = "<%= movie.id %>"; // Hämtar filmens ID från EJS-servern
-  
-      const fetchReviews = async () => {
-        try {
-          console.log(`Hämtar recensioner för film-ID: ${movieId}...`);
-          const response = await fetch(`/api/reviews/movie/${movieId}`);
-  
-          if (!response.ok) throw new Error("Misslyckades att hämta recensioner!");
-  
-          const reviews = await response.json();
-          console.log("Fetched Reviews:", reviews);
-  
-          reviewsContainer.innerHTML = reviews.length
-            ? reviews.map(review => `
-              <div class="review">
-                <strong>${review.author || "Anonym"}</strong> - ${review.rating}/10
-                <p>${review.comment}</p>
-              </div>
-            `).join("")
-            : "<p>Inga recensioner tillgängliga ännu.</p>";
-        } catch (error) {
-          console.error("Fel vid hämtning av recensioner:", error);
-          reviewsContainer.innerHTML = "<p>Misslyckades att ladda recensioner.</p>";
-        }
-      };
-  
-      await fetchReviews();
-    });
-  </script>
-  
+  </div>  
 
 </div>
 

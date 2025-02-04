@@ -12,10 +12,6 @@
     body {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
         url('<%= frontPageImages.backgroundImage %>');
-        /*Här används inline CSS för att sätta en bakgrundsbild på hela sidan.
-         Bilden hämtas dynamiskt från frontPageImages.backgroundImage, 
-         vilket betyder att den kan ändras baserat på den information 
-         som skickas till EJS-filen.*/
     }
   </style>
 </head>
@@ -38,9 +34,7 @@
     </nav>
   </header>
   <main class="main">
-    <%- body %> <!--Här injiceras huvudinnehållet från den aktuella EJS-sidan 
-    genom <%- body %>. Denna plats kommer att fyllas med det dynamiska 
-    innehållet beroende på den specifika sidan-->
+    <%- body %> 
     
   </main>
   <footer class="footer">
@@ -84,7 +78,3 @@
 </body>
 
 </html>
-
-<!--Denna ejs fil är the master of ejs files.
-den är den fullständiga mallen för webbsidan där dynamiskt
-innehåll från servern redneras i HTML-strukturen -->
