@@ -43,6 +43,24 @@ describe('getScreeningsForMovies', () => {
     expect(screenings).toHaveLength(4)
     expect(screenings).toContainEqual(mockScreening(3, movieId))
   })
+
+  it('should return an empty array if requested movieId have no match', async () => {
+    const screeningAdapter = {
+      loadScreeningsForMovie: async (movieId) => ({
+        data:
+          movieId === 999
+            ? []
+            : [
+                mockScreening(1, movieId),
+                mockScreening(2, movieId),
+                mockScreening(3, movieId),
+                mockScreening(4, movieId),
+              ],
+      }),
+    }
+    const screenings = await getScreeningsForMovies(screeningAdapter, [999])
+    expect(screenings).toHaveLength(0)
+  })
 })
 
 /*
