@@ -31,10 +31,10 @@ async function loadReviewsForMovie(movieId, page, pageSize) {
       meta: payload.meta,
     }
   } catch (error) {
-    console.error('Fel vid API-anrop:', error)
+    console.error('Fel uppstod vid API-anrop:', error)
     return {
       reviews: [],
-      meta: { pagination: { page, pageCount: 0 } },
+      meta: { pagination: { page, pageCount: 0, total: 0 } },
     }
   }
 }
@@ -56,84 +56,93 @@ async function loadReviews(movieId) {
   hasMore = meta.pagination.pageCount > currentPage
 
   //Uppdaterar pagineringsknapparna
-  updatePaginationButtons(hasMore)
-
-  //Uppdaterar sidinformation i DOM:en
-  document.getElementById('pagination-info').textContent =
-    `Sida ${meta.pagination.page} av ${meta.pagination.pageCount}`
+  updatePaginationButtons(hasMore, meta)
 }
 
 /*Aktiverar eller inaktiverar knapparna för "Föregående" och "Nästa" baserat på:
 Om vi är på den första sidan (currentPage === 1).
 Om det finns fler recensioner att visa (hasMore)*/
-function updatePaginationButtons(hasMore) {
-  const prevBtn = document.getElementById('prevBtn')
-  const nextBtn = document.getElementById('nextBtn')
+function updatePaginationButtons(hasMore, meta) {
+  const prevBtn = document.querySelector('#prevBtn')
+  const nextBtn = document.querySelector('#nextBtn')
+  const paginationInfo = document.querySelector('#pagination-info')
 
-  if (!prevBtn || !nextBtn) {
-    console.error('Pagineringsknappar saknas i DOM:en!')
+  if (!prevBtn || !nextBtn || !paginationInfo) {
+    console.error('Pagineringsknappar eller paginerings-information saknas i DOM:en!')
+    return
   }
 
   prevBtn.disabled = currentPage === 1
   nextBtn.disabled = !hasMore
-
-  // Uppdatera sidinformation
-  document.getElementById('pagination-info').textContent =
-    `Sida ${meta.pagination.page} av ${meta.pagination.pageCount}`
+  paginationInfo.textContent = `Sida ${meta.pagination.page} av ${meta.pagination.pageCount}`
 }
 
-// Funktion: Rendera recensioner i DOM
+// Rendera recensioner i DOM:en
 function renderReviews(reviews) {
-  const reviewsContainer = document.getElementById('reviews-container')
-  if (!reviewsContainer) {
-    console.error('Reviews-container saknas i DOM:en!')
+  const reviewsList = document.querySelector('#reviews-list')
+  if (!reviewsList) {
+    console.error('Recensions lista saknas i DOM:en!')
     return
+  }
+
+  while (reviewsList.firstChild) {
+    reviewsList.removeChild(reviewsList.firstChild)
   }
 
   if (!reviews || reviews.length === 0) {
-    reviewsContainer.innerHTML = '<p>Inga recensioner tillgängliga.</p>'
+    const fallback = document.createElement('p')
+    fallback.textContent = 'Inga recensioner tillgängliga, var den första att recensera!'
+    reviewsList.appendChild(fallback)
     return
   }
 
-  reviewsContainer.innerHTML = reviews
-    .map(
-      (review) => `
-        <div class="review">
-          <strong>${review.author || 'Anonym'}</strong> - ${review.rating}/10
-          <p>${review.comment}</p>
-        </div>
-      `
-    )
-    .join('')
+  reviews.forEach((review) => {
+    const reviewDiv = document.createElement('div')
+    reviewDiv.classList.add('review')
+
+    // Författare
+    const author = document.createElement('strong')
+    author.textContent = review.author || 'Anonym'
+    reviewDiv.appendChild(author)
+
+    // Betyg
+    const ratingText = document.createTextNode(` - ${review.rating}/10`)
+    reviewDiv.appendChild(ratingText)
+
+    // Kommentar (Content i en paragraf)
+    const commentPara = document.createElement('p')
+    commentPara.textContent = review.comment
+    reviewDiv.appendChild(commentPara)
+
+    // Lägg till recensionen i listan
+    reviewsList.appendChild(reviewDiv)
+  })
 }
 
-// Funktion: Uppdatera status för pagineringsknappar, Aktivering eller inaktivering beroende på villkor om fler sidor
-// function updatePaginationButtons(hasMore) {
-//   const prevBtn = document.getElementById('prevBtn')
-//   const nextBtn = document.getElementById('nextBtn')
-//   const paginationInfo = document.getElementById('pagination-info')
-
-//   prevBtn.disabled = currentPage === 1
-//   nextBtn.disabled = !hasMore //hasMore är false
-
-//   paginationInfo.textContent = `Sida ${currentPage}`
-// }
-
+// När DOM:en är laddad sker hämtning av recensioner och knapplyssnare
 document.addEventListener('DOMContentLoaded', () => {
-  loadReviewsForMovie(movieId, 1, 5)
+  loadReviews(movieId)
 
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage -= 1
+  const prevBtn = document.querySelector('#prevBtn')
+  const nextBtn = document.querySelector('#nextBtn')
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage -= 1
+        loadReviews(movieId)
+      }
+    })
+  } else {
+    console.error('Föregående knappen saknas i DOM:en')
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentPage += 1
       loadReviews(movieId)
-    }
-  })
-
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    currentPage += 1
-    loadReviews(movieId)
-  })
+    })
+  } else {
+    console.error('Nästa knappen saknas i DOM:en')
+  }
 })
-
-// Initiera hämtning av recensioner vid sidladdning
-loadReviews(movieId)
