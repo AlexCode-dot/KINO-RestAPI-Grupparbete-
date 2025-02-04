@@ -16,27 +16,18 @@ export default function apiRoutes(api) {
       next(err)
     }
   })
-}
 
-router.get('/average-rating/:movieId', async (req, res) => {
-  try {
-    console.log('Calculating average rating')
-    const movieId = req.params.movieId
-    const averageRating = await calculateAverageRating(movieId)
-    res.json({ averageRating })
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to calculate average rating' })
-  }
-  /*
-  router.get('/movies/screenings', async (request, response, next) => {
+  router.get('/average-rating/:movieId', async (req, res) => {
     try {
-      const screenings = await getScreeningsForMovies(screeningAdapter, [])
-      response.json(screenings)
-    } catch (err) {
-      next(err)
+      console.log('Calculating average rating')
+      const movieId = req.params.movieId
+      const averageRating = await calculateAverageRating(movieId)
+      res.json({ averageRating })
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to calculate average rating' })
     }
   })
-*/
+
   router.get('/movies/screenings/next-five-days', async (request, response, next) => {
     try {
       const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
@@ -47,4 +38,4 @@ router.get('/average-rating/:movieId', async (req, res) => {
   })
 
   return router
-})
+}
