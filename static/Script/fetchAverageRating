@@ -1,0 +1,22 @@
+async function fetchAverageRating(movieId) {
+  const response = await fetch(`/api/average-rating/${movieId}`);
+  const data = await response.json();
+  return data.averageRating;
+}
+
+function averageRatingTest() {
+    console.log("test rating");
+  };
+averageRatingTest();
+
+async function displayAverageRating(movieId) {
+  const averageRating = await fetchAverageRating(movieId);
+  const ratingContainer = document.querySelector(`.singleMovie__main-rating`);
+  ratingContainer.textContent = `Average movie rating: ${averageRating}`;
+  console.log(ratingContainer.textContent);
+}
+console.log('fetchAverageRating loaded');
+document.addEventListener('DOMContentLoaded', () => {
+  const movieId = window.location.pathname.split('/').pop();
+  displayAverageRating(movieId);
+});
