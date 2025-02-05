@@ -838,4 +838,17 @@ footer {
   font-size: 1rem;
 }
 
+.name-label {
+  display: inline;
+  width: 200px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.name-input {
+  width: 200px;
+  margin: auto;
+  display: inline;
+}
+
 /*# sourceMappingURL=styles.css.map */
