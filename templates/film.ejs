@@ -31,27 +31,20 @@
 </div>
 
 
+<div class="singleMovie__addReviews">
+  <h1>Skriv en recension</h1>
 
-  <form class="singleMovie__addReviews">
-    <h1>Skriv en recension</h1>
-    
-      <div class="singleMovie__addReviews__label-name-review-container">
-        <label class="name-label">Ditt namn:</label>
-      <input class="name-field" type="text" minlength="3" maxlength="30">
-      </div>
-  
-      <div class="rating">
-        <label class="rating__label">Ditt betyg:</label>
-        <select class="rating__dropDown">
-          <option value="rating__1" class="star1">1: &#9733;</option>
-          <option value="rating__2" class="star2">2: &#9733;&#9733;</option>
-          <option value="rating__3" class="star3">3: &#9733;&#9733;&#9733;</option>
-          <option value="rating__4" class="star4">4: &#9733;&#9733;&#9733;&#9733;</option>
-          <option value="rating__5" class="star5">5: &#9733;&#9733;&#9733;&#9733;&#9733;</option>
-        </select>
-      </div>
-    
-    
-    <textarea class="singleMovie__addReviewsContainer" maxlength="2500" placeholder="Skriv din recension här"></textarea>
-    <button class="submit-button" type="submit">Skicka in</button>
-  </form>
+  <select class="rating-dropdown">
+    <option>&#9733;</option>
+    <option>&#9733;&#9733;</option>
+    <option>&#9733;&#9733;&#9733;</option>
+    <option>&#9733;&#9733;&#9733;&#9733;</option>
+    <option>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+  </select>
+  <label class="name-label">Ditt namn: </label>
+  <input text="text" class="name-input">
+  <textarea class="review-textarea" placeholder="Skriv din recension här"></textarea>
+
+</div>
+
+<button class="submit-button">Submit</button>
