@@ -26,3 +26,23 @@ export async function getScreeningsForNextFiveDays(screeningAdapter) {
 
   return screenings
 }
+
+export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
+  const allScreenings = []
+  const page = 1
+  const pageSize = 100
+
+  const firstPage = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
+  allScreenings.push(firstPage.data)
+
+  const totalPages = firstPage.meta.pagination.pageCount
+
+  while (page < totalPages) {
+    page++
+    const allScreeningsLoop = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
+    allScreenings.push(allScreeningsLoop.data)
+  }
+  console.log(allScreenings)
+
+  return allScreenings
+}
