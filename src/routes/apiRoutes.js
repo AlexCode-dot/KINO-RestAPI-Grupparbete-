@@ -17,13 +17,13 @@ export default function apiRoutes(api) {
     }
   })
 
-  router.get('/average-rating/:movieId', async (req, res) => {
+  router.get('/movies/:movieId/rating', async (request, response, next) => {
     try {
       const movieId = req.params.movieId
       const averageRating = await calculateAverageRating(movieId)
       res.json({ averageRating })
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to calculate average rating' })
+    } catch (err) {
+      next(err)
     }
   })
 
