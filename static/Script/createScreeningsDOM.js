@@ -25,4 +25,10 @@ function createScreenings(data) {
   console.log(data)
 }
 
-addEventListener('DOMContentLoaded', createScreenings(mockDatesTimes.data))
+//Not finished. Needs to be typed correct with error handling.
+addEventListener('DOMContentLoaded', async () => {
+  const response = await fetch('/api/test')
+  const screeningData = await response.json()
+  console.log(screeningData)
+  createScreenings(screeningData.data)
+})
