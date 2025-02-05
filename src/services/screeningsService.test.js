@@ -63,23 +63,28 @@ describe('getScreeningsForMovies', () => {
   })
 })
 
-/*
 describe('getScreeningForNextFiveDays', () => {
-    beforeEach(() => {
-        jest.useFakeTimers()
-    })
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
 
-    afterEach(() => {
-        jest.clearAllTimers()
-    })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
-    it ('should fetch screenings for the following 5 days', async () => {
-
-    })
-
+  it('should fetch screenings for the following 5 days', async () => {
+    jest.setSystemTime(new Date(2025, 0, 1))
+    const screeningAdapter = {
+      loadScreeningsForDate: async (formattedDate) => ({
+        data: [mockScreening(1, formattedDate), mockScreening(2, formattedDate)],
+      }),
+    }
+    const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
+    expect(screenings).toHaveLength(10)
+  })
+  /*
     it ('should only show a maximum of 10 screenings', async () => {
 
     })
-
-})
 */
+})
