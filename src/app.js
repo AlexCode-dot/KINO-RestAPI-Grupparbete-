@@ -78,6 +78,7 @@ export default function initApp(api) {
 
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
+  app.use('/static/Script', express.static('./static/Script'))
 
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {
@@ -87,6 +88,9 @@ export default function initApp(api) {
   })
 
   app.use((request, response) => {
+    if (request.originalUrl.startsWith('/api/')) {
+      return response.status(404).json({ error: 'Endpoint hittades inte', status: 404 })
+    }
     renderErrorPage(response, 404, 'Sidan kunde inte hittas', 'Sidan finns inte')
   })
 

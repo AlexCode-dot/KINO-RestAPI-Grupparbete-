@@ -47,9 +47,42 @@
 }
 
 .singleMovie__screenings {
+  width: 100%;
   border: 3px solid #03658c;
   border-radius: 5px;
   height: 15rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  justify-content: center;
+  justify-items: center;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.screenings__dateContainer {
+  border: 2px solid #03658c;
+  background-color: #012840;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  text-decoration: none;
+  color: white;
+  margin-top: 7px;
+  padding: 3px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .screenings__room,
+  .screenings__date {
+    white-space: nowrap;
+    text-align: center;
+  }
 }
 
 .singleMovie__reviews {
