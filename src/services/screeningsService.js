@@ -33,16 +33,15 @@ export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
   const pageSize = 100
 
   const firstPage = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
-  allScreenings.push(firstPage.data)
+  allScreenings.push(...firstPage.data)
 
   const totalPages = firstPage.meta.pagination.pageCount
 
   while (page < totalPages) {
     page++
     const allScreeningsLoop = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
-    allScreenings.push(allScreeningsLoop.data)
+    allScreenings.push(...allScreeningsLoop.data)
   }
-  console.log(allScreenings)
 
-  return allScreenings
+  return { data: allScreenings }
 }

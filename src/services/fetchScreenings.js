@@ -46,7 +46,7 @@ const screeningAdapter = {
     }
   },
   loadScreeningsForOneMovie: async (id, page, pageSize) => {
-    const url = `https://plankton-app-xhkom.ondigitalocean.app/api/screenings?filters[movie]=${id}&pagination[page]=${page}`
+    let url = `https://plankton-app-xhkom.ondigitalocean.app/api/screenings?filters[movie]=${id}&pagination[page]=${page}`
 
     if (pageSize) {
       url += `&pagination[pageSize]=${pageSize}`
