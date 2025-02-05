@@ -82,9 +82,15 @@ describe('getScreeningForNextFiveDays', () => {
     const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
     expect(screenings).toHaveLength(10)
   })
-  /*
-    it ('should only show a maximum of 10 screenings', async () => {
 
-    })
-*/
+  it('should only show a maximum of 10 screenings', async () => {
+    jest.setSystemTime(new Date(2025, 0, 1))
+    const screeningAdapter = {
+      loadScreeningsForDate: async (formattedDate) => ({
+        data: [mockScreening(1, formattedDate), mockScreening(1, formattedDate), mockScreening(1, formattedDate)],
+      }),
+    }
+    const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
+    expect(screenings).toHaveLength(10)
+  })
 })
