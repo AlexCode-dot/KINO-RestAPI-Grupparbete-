@@ -867,53 +867,44 @@ footer {
   display: flex;
 }
 
-.singleMovie__addReviews__label-name-review-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.name-label {
-  margin-right: 10px;
-}
-
-.rating__label {
-  margin-right: 5px;
-}
-
-.name-field {
-  width: 200px;
-  height: 30px;
-  border: 1px solid #03658c;
-  border-radius: 5px;
-}
-
-.rating {
-  margin-top: 20px;
-  margin-right: 73px;
-}
-
-.rating__dropDown {
-  font-size: 1.2rem;
-  color: #36d;
-  width: auto;
-  height: 30px;
-  border: 1px solid #999;
-  border-radius: 5px;
-  background-color: #eee;
-  font-family: verdana;
-  text-align: center;
-}
-
 .submit-button {
   width: 100px;
   height: 40px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin: auto;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+}
+
+.rating-dropdown {
+  font-size: 20px;
+  color: #012840;
+  width: 110px;
+  margin: auto;
+  color: darkgoldenrod;
+}
+
+.review-textarea {
+  border-radius: 5px;
+  padding: 10px;
+  height: 20rem;
+  resize: none;
+  width: 50%;
+  border: 3px solid #03658c;
+  margin: 20px auto 20px auto;
+  font-size: 1rem;
+}
+
+.name-label {
+  display: inline;
+  width: 200px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.name-input {
+  width: 200px;
+  margin: auto;
+  display: inline;
 }
 
 /*# sourceMappingURL=styles.css.map */
