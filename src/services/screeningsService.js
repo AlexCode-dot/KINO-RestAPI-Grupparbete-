@@ -26,5 +26,5 @@ export async function getScreeningsForNextFiveDays(screeningAdapter) {
     screenings.push(...response.data)
   }
 
-  return screenings
+  return screenings.slice(0, 10)
 }
