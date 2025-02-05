@@ -1,6 +1,7 @@
 import express from 'express'
 import { getTopRatedMoviesByRating } from '../services/moviesTopRated.js'
 import cmsAdapter from '../services/fetchReviews.js'
+import { calculateAverageRating } from '../services/calculateRatings.js'
 import { getScreeningsForNextFiveDays } from '../services/screeningsService.js'
 import screeningAdapter from '../services/fetchScreenings.js'
 
@@ -16,16 +17,16 @@ export default function apiRoutes(api) {
     }
   })
 
-  /*
-  router.get('/movies/screenings', async (request, response, next) => {
+  router.get('/movies/:movieId/rating', async (request, response, next) => {
     try {
-      const screenings = await getScreeningsForMovies(screeningAdapter, [])
-      response.json(screenings)
+      const movieId = request.params.movieId
+      const averageRating = await calculateAverageRating(movieId)
+      response.json({ averageRating })
     } catch (err) {
       next(err)
     }
   })
-*/
+
   router.get('/movies/screenings/next-five-days', async (request, response, next) => {
     try {
       const screenings = await getScreeningsForNextFiveDays(screeningAdapter)
