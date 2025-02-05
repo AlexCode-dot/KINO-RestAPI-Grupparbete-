@@ -10,8 +10,7 @@ fetch('/api/movies/screenings/next-five-days')
     if (screenings.length === 0) {
       document.querySelector('.screenings-list').innerHTML = '<li>No screenings found</li>'
     } else {
-      const limitedScreenings = screenings.slice(0, 10)
-      document.querySelector('.screenings-list').innerHTML = limitedScreenings
+      document.querySelector('.screenings-list').innerHTML = screenings
         .map((screening) => {
           return `<li>
           ${screening.movie.title} - 
