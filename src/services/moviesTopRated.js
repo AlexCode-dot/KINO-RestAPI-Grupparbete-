@@ -2,24 +2,20 @@ import { filterRecentReviews, calculateAverageRating, getAllReviewsForMovie } fr
 
 export async function getTopRatedMoviesByRating(cmsAdapter, loadMovies) {
   const movies = await loadMovies()
-  const moviesWithRatings = []
 
-  for (const movie of movies) {
-    const allReviews = await getAllReviewsForMovie(cmsAdapter, movie.id)
-    const recentReviews = filterRecentReviews(allReviews)
-    const averageRating = calculateAverageRating(recentReviews)
+  const reviewPromises = movies.map((movie) => getAllReviewsForMovie(cmsAdapter, movie.id))
+  const allReviews = await Promise.all(reviewPromises)
 
-    if (recentReviews.length > 0) {
-      moviesWithRatings.push({
-        id: movie.id,
-        title: movie.title,
-        image: movie.image,
-        averageRating,
-      })
+  const moviesWithRatings = movies.map((movie, index) => {
+    const recentReviews = filterRecentReviews(allReviews[index])
+    if (recentReviews.length === 0) return null
+    return {
+      id: movie.id,
+      title: movie.title,
+      image: movie.image,
+      averageRating: calculateAverageRating(recentReviews),
     }
-  }
+  })
 
-  const topRatedMovies = moviesWithRatings.sort((a, b) => b.averageRating - a.averageRating).slice(0, 5)
-
-  return topRatedMovies
+  return moviesWithRatings.sort((a, b) => b.averageRating - a.averageRating).slice(0, 5)
 }
