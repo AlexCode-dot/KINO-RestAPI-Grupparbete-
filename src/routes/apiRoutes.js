@@ -36,5 +36,31 @@ export default function apiRoutes(api) {
     }
   })
 
+  // Backend Router to get reviews based on a specific movie ID
+  router.get('/movies/:id/reviews', async (req, res, next) => {
+    const { id } = req.params
+    const page = parseInt(req.query.page) || 1
+    const pageSize = parseInt(req.query.pageSize) || 5
+
+    if (!id) {
+      return res.status(400).json({ error: 'Movie ID saknas i URL:en' })
+    }
+
+    try {
+      const { data, meta } = (await cmsAdapter.loadReviewsForMovie(id, page, pageSize)) || {
+        data: [],
+        meta: { pagination: { page, pageCount: 0 } },
+      }
+
+      res.json({
+        reviews: data,
+        meta: meta,
+      })
+    } catch (error) {
+      console.error(`Fel vid hämtning av recensioner för film ${id}:`, error)
+      next(error)
+    }
+  })
+
   return router
 }
