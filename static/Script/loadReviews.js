@@ -96,25 +96,32 @@ function renderReviews(reviews) {
     return
   }
 
+  // Loopar igenom alla recensioner och skapar HTML för dem
   reviews.forEach((review) => {
     const reviewDiv = document.createElement('div')
     reviewDiv.classList.add('review')
 
-    // Författare
-    const author = document.createElement('strong')
+    // VÄNSTER, skapa betyget
+    const rating = document.createElement('span')
+    rating.classList.add('rating')
+    rating.textContent = `${review.rating}/10`
+
+    // HÖGER, Skapa namnet
+    const author = document.createElement('span')
+    author.classList.add('name')
     author.textContent = review.author || 'Anonym'
-    reviewDiv.appendChild(author)
 
-    // Betyg
-    const ratingText = document.createTextNode(` - ${review.rating}/10`)
-    reviewDiv.appendChild(ratingText)
-
-    // Kommentar (Content i en paragraf)
+    // SIST, Skapa recensionen
     const commentPara = document.createElement('p')
+    commentPara.classList.add('comment')
     commentPara.textContent = review.comment
+
+    // Lägger elementen i reviewDiv
+    reviewDiv.appendChild(rating)
+    reviewDiv.appendChild(author)
     reviewDiv.appendChild(commentPara)
 
-    // Lägg till recensionen i listan
+    // Lägger till recensionen i listan
     reviewsList.appendChild(reviewDiv)
   })
 }
