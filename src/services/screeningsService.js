@@ -43,7 +43,14 @@ export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
     allScreenings.push(...allScreeningsLoop.data)
   }
 
-  const sortedScreenings = allScreenings.sort((a, b) => {
+  const currentDate = new Date()
+
+  const futureScreenings = allScreenings.filter((screening) => {
+    const screeningDate = new Date(screening.attributes.start_time)
+    return screeningDate >= currentDate
+  })
+
+  const sortedScreenings = futureScreenings.sort((a, b) => {
     return new Date(a.attributes.start_time) - new Date(b.attributes.start_time)
   })
 
