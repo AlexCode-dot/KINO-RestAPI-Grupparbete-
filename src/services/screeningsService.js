@@ -43,5 +43,9 @@ export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
     allScreenings.push(...allScreeningsLoop.data)
   }
 
-  return { data: allScreenings }
+  const sortedScreenings = allScreenings.sort((a, b) => {
+    return new Date(a.attributes.start_time) - new Date(b.attributes.start_time)
+  })
+
+  return { data: sortedScreenings }
 }

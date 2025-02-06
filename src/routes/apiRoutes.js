@@ -18,9 +18,10 @@ export default function apiRoutes(api) {
   })
 
   //Route not finished. At this stage it is just for testing with one specific id
-  router.get('/test', async (request, response, next) => {
+  router.get('/movies/screenings', async (request, response, next) => {
     try {
-      const allScreenings = await getAllScreeningsForOneMovie(screeningAdapter, 8)
+      const id = request.query.movieId
+      const allScreenings = await getAllScreeningsForOneMovie(screeningAdapter, id)
       response.json(allScreenings)
     } catch (err) {
       next(err)
