@@ -95,12 +95,105 @@
   }
 }
 
-.singleMovie__reviewContainer {
-  width: 90%;
-  border: 3px solid #03658c;
-  border-radius: 5px;
-  height: 20rem;
-  margin: 0 auto;
+//Styling for reviews and pagination
+$background-color: #012840;
+$primary-color: #03658c;
+$button-border: rgba(3, 101, 140, 0.5);
+$border-color: rgba(204, 204, 204, 0.5);
+
+.singleMovie {
+  &__reviews {
+    text-align: center;
+    padding: 20px;
+
+    h1 {
+      margin: 40px auto 10px auto;
+    }
+  }
+
+  &__reviewContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 20px;
+    padding: 20px;
+    border-radius: 8px;
+
+    div {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 20px;
+      border: 2px solid $border-color;
+      border-radius: 2px;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+}
+
+#pagination {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 10px;
+  margin-top: -60px;
+  margin-right: 35px;
+
+  button {
+    border: 2px solid $button-border;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    color: $primary-color;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #e0e0e0;
+      color: #52b3d9;
+    }
+
+    &:disabled {
+      background-color: #f0f0f0;
+      color: #a0a0a0;
+      border: 1px solid #e0e0e0;
+      box-shadow: none;
+    }
+  }
+}
+
+#pagination-info {
+  display: none;
+}
+
+.review {
+  display: grid;
+  grid-template-areas:
+    'rating name'
+    'comment comment';
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+
+  .rating {
+    grid-area: rating;
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  .name {
+    grid-area: name;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .comment {
+    grid-area: comment;
+    text-align: center;
+  }
 }
 
 .singleMovie__addReviews {
