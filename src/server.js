@@ -7,7 +7,8 @@ const api = {
 }
 
 const app = initApp(api)
+const port = process.env.PORT || 5080
 
-app.listen(5080, () => {
-  console.log('Server running on http://localhost:5080')
+app.listen(port, () => {
+  console.log(`Listening on port: ${port}`)
 })

@@ -8,8 +8,9 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node src/server.js",
     "prepare": "husky install",
-    "build-css": "sass src/styles/main.scss static/styles/style.css",
-    "watch-css": "sass --watch src/styles/main.scss:static/style/styles.css"
+    "build-css": "sass src/styles/main.scss static/style/styles.css",
+    "watch-css": "sass --watch src/styles/main.scss:static/style/styles.css",
+    "build": "npm run build-css"
   },
   "keywords": [],
   "author": "",
