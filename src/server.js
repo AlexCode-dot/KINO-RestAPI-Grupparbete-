@@ -7,4 +7,8 @@ const api = {
 }
 
 const app = initApp(api)
-app.listen(5080)
+const port = process.env.PORT || 5080
+
+app.listen(port, () => {
+  console.log(`Listening on port: ${port}`)
+})
