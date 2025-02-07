@@ -71,15 +71,16 @@
   color: white;
   margin-top: 7px;
   padding: 3px;
-  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.3);
   }
 
   .screenings__room,
-  .screenings__date {
+  .screenings__date,
+  .screenings__time {
     white-space: nowrap;
     text-align: center;
   }
