@@ -1,7 +1,10 @@
 /*This is a mocked test to simulate an API response, I call the function loadReviewsForMovie with test-data and
 I am making sure the fetch is called with the right URL and that we get correct data in return*/
 
-import { loadReviewsForMovie } from 'static/Script/loadReviews.js'
+//Importing jest globals in my testfiles when because of the type: module
+import { jest } from '@jest/globals'
+//Relative import
+import { loadReviewsForMovie } from '../static/Script/loadReviews.js'
 
 //We don`t want to use real API calls, so we do a MOCKED global fetch to find out how loadReviewsForMovie is doing out there
 global.fetch = jest.fn()

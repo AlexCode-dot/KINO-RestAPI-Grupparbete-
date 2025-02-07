@@ -1,6 +1,8 @@
 //Test to see if loadReviewsForMovie is capable of handling an API response in several pages
 
-import { loadReviewsForMovie } from 'static/Script/loadReviews.js'
+//Importing jest globals in my testfiles when because of the type: module
+import { jest } from '@jest/globals'
+import { loadReviewsForMovie } from '../static/Script/loadReviews.js'
 
 global.fetch = jest.fn()
 
