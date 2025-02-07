@@ -33,7 +33,9 @@ export async function calculateAverageRating(movieId, cmsAdapter, getTitle, getE
   const title = await getTitle(movieId)
 
   if (ratings.length < 5 && title) {
-    console.log(`Not enough reviews for movie ${title} number of reviews found `, ratings.length)
+    // console.log(`Not enough reviews for movie ${title} number of reviews found `, ratings.length)
+    console.log(`Not enough reviews for movie`, title)
+    console.log(`Number of reviews found`, ratings.length)
     const omdb = await getExtraReviews(movieId)
     let newNumber = omdb / 2
     console.log(omdb, ' Divided with 2 ', newNumber)
