@@ -23,12 +23,9 @@ async function fetchAllReviews(movieId, cmsAdapter) {
 
 export async function calculateAverageRating(movieId, cmsAdapter, getTitle, getExtraReviews) {
   const reviews = await fetchAllReviews(movieId, cmsAdapter)
-  console.log('Reviews:', reviews)
+
   let ratings = reviews.map((review) => review.rating)
   console.log('Initial ratings:', ratings)
-
-  const movieTitle = reviews.length > 0 ? reviews[0].movieTitle : null
-  console.log('Reviews data:', reviews)
 
   const totalRatings = ratings.reduce((acc, rating) => acc + rating, 0)
   let averageRating = ratings.length ? totalRatings / ratings.length : 0
@@ -43,7 +40,7 @@ export async function calculateAverageRating(movieId, cmsAdapter, getTitle, getE
     averageRating = newNumber
   }
 
-  const debug = true
+  const debug = false
   if (debug) {
     console.log('This is the review section ', reviews)
     console.log(`Reviews: ${ratings}`)
