@@ -31,7 +31,7 @@ export async function getScreeningsForNextFiveDays(screeningAdapter) {
 
 export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
   const allScreenings = []
-  const page = 1
+  let page = 1
   const pageSize = 100
 
   const firstPage = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
