@@ -1,11 +1,34 @@
 import { getTitle, getExtraReviews } from './fetchOmdb.js'
 import cmsAdapter from './fetchReviews.js'
 
-export async function calculateAverageRating(movieId) {
-  const reviews = await cmsAdapter.loadReviewsForMovie(movieId, 1, 100)
-  //
-  let ratings = reviews.data.map((review) => review.rating)
-  console.log('Reviews ', ratings.length)
+async function fetchAllReviews(movieId, cmsAdapter) {
+  let allReviews = []
+  let page = 1
+  const pageSize = 5
+  let hasMoreReviews = true
+
+  while (hasMoreReviews) {
+    console.log('Fetching reviews for movie:', movieId, 'page:', page)
+    const reviews = await cmsAdapter.loadReviewsForMovie(movieId, page, pageSize)
+    if (reviews.data.length > 0) {
+      allReviews = allReviews.concat(reviews.data)
+      page++
+    } else {
+      hasMoreReviews = false
+    }
+  }
+
+  return allReviews
+}
+
+export async function calculateAverageRating(movieId, cmsAdapter, getTitle, getExtraReviews) {
+  const reviews = await fetchAllReviews(movieId, cmsAdapter)
+  console.log('Reviews:', reviews)
+  let ratings = reviews.map((review) => review.rating)
+  console.log('Initial ratings:', ratings)
+
+  const movieTitle = reviews.length > 0 ? reviews[0].movieTitle : null
+  console.log('Reviews data:', reviews)
 
   const totalRatings = ratings.reduce((acc, rating) => acc + rating, 0)
   let averageRating = ratings.length ? totalRatings / ratings.length : 0
@@ -22,9 +45,9 @@ export async function calculateAverageRating(movieId) {
 
   const debug = true
   if (debug) {
-    // console.log("This is the review section ", reviews);
+    console.log('This is the review section ', reviews)
     console.log(`Reviews: ${ratings}`)
-    console.log(`Average rating for movie nr ${movieId} ${title} ${averageRating.toFixed(1)}`)
+    console.log(`Average rating for movie nr ${movieId} ${title} ${averageRating}`)
     console.log('Average number is', averageRating.toFixed(1))
   }
 
