@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
       author: author,
     }
 
-    console.log('reviewData: ' + reviewData.comment, reviewData.rating, reviewData.author)
-
     const movieID = window.location.pathname.split('/').pop()
     try {
       console.log(`Skickar request till: /api/movies/${movieID}/reviews`)
@@ -35,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
 
       if (response.ok) {
+        console.log(reviewData)
         alert('Recension skickad!')
         reviewForm.reset()
       } else {
