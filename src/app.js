@@ -75,7 +75,7 @@ export default function initApp(api) {
       next(err)
     }
   })
-
+  app.use(express.json())
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
   app.use('/static/Script', express.static('./static/Script'))

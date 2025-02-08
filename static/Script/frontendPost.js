@@ -2,14 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const reviewForm = document.querySelector('.singleMovie__addReviews')
 
   if (!reviewForm) {
-    console.error('Formuläret hittades inte på sidan!')
+    console.error('Formuläret hittades inte!')
     return
   }
 
   reviewForm.addEventListener('submit', async (event) => {
     event.preventDefault() // Prevents page from reloading
 
-    console.log('preventDefault() fungerar!')
+    console.log('Yay! Page is not reloading!')
 
     const comment = document.querySelector('.review-textarea').value
     const rating = document.querySelector('.rating-dropdown').value
@@ -21,8 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
       author: author,
     }
 
+    console.log('reviewData: ' + reviewData.comment, reviewData.rating, reviewData.author)
+
     const movieID = window.location.pathname.split('/').pop()
     try {
+      console.log(`Skickar request till: /api/movies/${movieID}/reviews`)
       const response = await fetch(`/api/movies/${movieID}/reviews`, {
         method: 'POST',
         headers: {
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify(reviewData),
       })
-      console.log(movieID)
+
       if (response.ok) {
         alert('Recension skickad!')
         reviewForm.reset()

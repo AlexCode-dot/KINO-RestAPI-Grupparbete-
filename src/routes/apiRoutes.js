@@ -37,3 +37,34 @@ export default function apiRoutes(api) {
 
   return router
 }
+
+// Recieve review from client
+const reviews = {}
+router.post('/movies/:id/reviews', (req, res) => {
+  console.log(req.body)
+  const movieID = req.params.id
+
+  const comment = req.body.comment
+  const rating = req.body.rating
+  const author = req.body.author
+
+  if (!comment || !rating || !author) {
+    return res.status(400).json({ message: 'Alla fält måste fyllas i.' })
+  }
+
+  const userReview = {
+    comment,
+    rating: parseInt(rating),
+    author,
+  }
+
+  console.log(userReview)
+
+  if (!reviews[movieID]) {
+    reviews[movieID] = [] //Skapar en tom array om det inte finns någon
+  }
+
+  res.status(200).json({ message: 'Recensionen är tillagd', review: userReview })
+
+  reviews[movieID].push(userReview)
+})
