@@ -4,11 +4,24 @@ let currentPage = 1
 const pageSize = 5
 let hasMore = true
 
-const movieId = window.location.pathname.split('/').pop() //Extracting the movie ID from the URL
-console.log('Hämtat movieId:', movieId)
+// const movieId = window.location.pathname.split('/').pop() //Extracting the movie ID from the URL
+// console.log('Hämtat movieId:', movieId)
 
-if (!movieId) {
-  console.error('movieId saknas i URL:en')
+// if (!movieId) {
+//   console.error('movieId saknas i URL:en')
+// }
+
+/*I need conditions to access webpage-window, so I commented out my direct reference above.
+Now I make sure that window is being red only if it exists.
+*/
+let movieId = null
+if (typeof window !== 'undefined' && window.location) {
+  movieId = window.location.pathname.split('/').pop()
+  console.log('Hämtat movieId:', movieId)
+
+  if (!movieId) {
+    console.error('movieId saknas i URL:en')
+  }
 }
 
 /*Function: API call to Backend in order to get reviews based on our required endpoint*/
@@ -118,30 +131,64 @@ function renderReviews(reviews) {
 }
 
 //POST DOM-load: Getting all Reviews and Eventlisteners when page has loaded
-document.addEventListener('DOMContentLoaded', () => {
-  loadReviews(movieId)
+// document.addEventListener('DOMContentLoaded', () => {
+//   loadReviews(movieId)
 
-  //I need my buttons declared locally, but I could also declare them outside to call on them in DOMcontentLoaded. Maybe next time
-  const prevBtn = document.querySelector('#prevBtn')
-  const nextBtn = document.querySelector('#nextBtn')
+//   //I need my buttons declared locally, but I could also declare them outside to call on them in DOMcontentLoaded. Maybe next time
+//   const prevBtn = document.querySelector('#prevBtn')
+//   const nextBtn = document.querySelector('#nextBtn')
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      if (currentPage > 1) {
-        currentPage -= 1
+//   if (prevBtn) {
+//     prevBtn.addEventListener('click', () => {
+//       if (currentPage > 1) {
+//         currentPage -= 1
+//         loadReviews(movieId)
+//       }
+//     })
+//   } else {
+//     console.error('Föregående knappen saknas i DOM:en')
+//   }
+
+//   if (nextBtn) {
+//     nextBtn.addEventListener('click', () => {
+//       currentPage += 1
+//       loadReviews(movieId)
+//     })
+//   } else {
+//     console.error('Nästa knappen saknas i DOM:en')
+//   }
+// })
+
+/*I placed my DOM calls in a block of code that only will be red if the condition of 
+window is fulfilled*/
+if (typeof window !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    loadReviews(movieId)
+
+    const prevBtn = document.querySelector('#prevBtn')
+    const nextBtn = document.querySelector('#nextBtn')
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage -= 1
+          loadReviews(movieId)
+        }
+      })
+    } else {
+      console.error('Föregående knappen saknas i DOM:en')
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentPage += 1
         loadReviews(movieId)
-      }
-    })
-  } else {
-    console.error('Föregående knappen saknas i DOM:en')
-  }
+      })
+    } else {
+      console.error('Nästa knappen saknas i DOM:en')
+    }
+  })
+}
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      currentPage += 1
-      loadReviews(movieId)
-    })
-  } else {
-    console.error('Nästa knappen saknas i DOM:en')
-  }
-})
+//Export for tests
+export { loadReviewsForMovie, loadReviews, updatePaginationButtons, renderReviews }
