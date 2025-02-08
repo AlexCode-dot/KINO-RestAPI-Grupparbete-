@@ -11,6 +11,8 @@ export async function getScreeningsForMovies(screeningAdapter, movieIds = []) {
     const response = await Promise.all(fetchPromises)
     screenings = response.flatMap((response) => response.data)
   }
+
+  return screenings
 }
 
 export async function getScreeningsForNextFiveDays(screeningAdapter) {
@@ -24,5 +26,35 @@ export async function getScreeningsForNextFiveDays(screeningAdapter) {
     screenings.push(...response.data)
   }
 
-  return screenings
+  return screenings.slice(0, 10)
+}
+
+export async function getAllScreeningsForOneMovie(screeningAdapter, id) {
+  const allScreenings = []
+  let page = 1
+  const pageSize = 100
+
+  const firstPage = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
+  allScreenings.push(...firstPage.data)
+
+  const totalPages = firstPage.meta.pagination.pageCount
+
+  while (page < totalPages) {
+    page++
+    const allScreeningsLoop = await screeningAdapter.loadScreeningsForOneMovie(id, page, pageSize)
+    allScreenings.push(...allScreeningsLoop.data)
+  }
+
+  const currentDate = new Date()
+
+  const futureScreenings = allScreenings.filter((screening) => {
+    const screeningDate = new Date(screening.attributes.start_time)
+    return screeningDate >= currentDate
+  })
+
+  const sortedScreenings = futureScreenings.sort((a, b) => {
+    return new Date(a.attributes.start_time) - new Date(b.attributes.start_time)
+  })
+
+  return { data: sortedScreenings }
 }
