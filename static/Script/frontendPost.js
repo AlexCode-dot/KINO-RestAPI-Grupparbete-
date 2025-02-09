@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reviewForm.addEventListener('submit', async (event) => {
     event.preventDefault() // Prevents page from reloading
+    console.log('Formuläret skickas!')
 
-    console.log('Yay! Page is not reloading!')
-
+    const movieID = window.location.pathname.split('/').pop()
     const comment = document.querySelector('.review-textarea').value
     const rating = document.querySelector('.rating-dropdown').value
     const author = document.querySelector('.name-input').value
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       author: author,
     }
 
-    const movieID = window.location.pathname.split('/').pop()
+    console.log(`Movie ID: ${movieID}`)
     try {
       console.log(`Skickar request till: /api/movies/${movieID}/reviews`)
       const response = await fetch(`/api/movies/${movieID}/reviews`, {
