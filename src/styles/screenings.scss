@@ -1,0 +1,17 @@
+.screenings-list {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  list-style: none;
+  margin: 0;
+  overflow-x: scroll;
+
+  li {
+    min-width: 30%;
+  }
+}
+
+.screenings__title {
+  margin-bottom: -1rem;
+  font-size: 30px;
+}
