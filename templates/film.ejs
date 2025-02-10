@@ -45,25 +45,25 @@
 
 </div>
 
-<!---- Review Form ---->
-
-<div class="singleMovie__addReviews">
+<form class="singleMovie__addReviews">
   <h1>Skriv en recension</h1>
 
-  <select class="rating-dropdown">
-    <option>&#9733;</option>
-    <option>&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+  <select class="rating-dropdown" required \>
+    <option value="1">&#9733;</option>
+    <option value="2">&#9733;&#9733;</option>
+    <option value="3">&#9733;&#9733;&#9733;</option>
+    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
   </select>
   <label class="name-label">Ditt namn: </label>
-  <input text="text" class="name-input">
-  <textarea class="review-textarea" placeholder="Skriv din recension här"></textarea>
+  <input text="text" class="name-input" required \>
+  <textarea class="review-textarea" placeholder="Skriv din recension här" required></textarea>
   <button class="submit-button">Submit</button>
-  </div>
+</form>
 
 
-<script src="/static/script/fetchAverageRating.js"></script>
-<script type="module" src="/static/script/loadReviews.js"></script>
+
+<script src="/static/Script/fetchAverageRating.js"></script>
+<script type="module" src="/static/Script/loadReviews.js"></script>
 <script src="/static/Script/createScreeningsDOM.js"></script>
+

@@ -739,6 +739,46 @@ li.menu-active {
   height: 20rem;
 }
 
+.submit-button {
+  width: 100px;
+  height: 40px;
+  font-size: 1rem;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.rating-dropdown {
+  font-size: 20px;
+  color: #012840;
+  width: 110px;
+  margin: auto;
+  color: darkgoldenrod;
+}
+
+.review-textarea {
+  border-radius: 5px;
+  padding: 10px;
+  height: 20rem;
+  resize: none;
+  width: 50%;
+  border: 3px solid #03658c;
+  margin: 20px auto 20px auto;
+  font-size: 1rem;
+}
+
+.name-label {
+  display: inline;
+  width: 200px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.name-input {
+  width: 200px;
+  margin: auto;
+  display: inline;
+}
+
 .top-rated {
   margin-top: 40px;
   margin-bottom: 40px;

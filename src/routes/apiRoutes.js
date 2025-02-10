@@ -77,3 +77,47 @@ export default function apiRoutes(api) {
 
   return router
 }
+
+// Recieve review from client
+router.post('/movies/:id/reviews', async (req, res) => {
+  console.log(req.body)
+
+  const movieId = req.params.id
+  const comment = req.body.comment
+  const rating = req.body.rating
+  const author = req.body.author
+
+  if (!comment || !rating || !author) {
+    return res.status(400).json({ message: 'Alla fält måste fyllas i.' })
+  }
+
+  const userReview = {
+    data: {
+      movie: movieId,
+      comment,
+      rating: parseInt(rating),
+      author,
+    },
+  }
+
+  try {
+    const API = 'https://plankton-app-xhkom.ondigitalocean.app/api/reviews'
+    const apiResponse = await fetch(API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userReview),
+    })
+
+    if (!apiResponse.ok) {
+      throw new Error(`API error: ${apiResponse.statusText}`)
+    }
+
+    const responseData = await apiResponse.json()
+    res.status(200).json({ message: 'Recensionen är tillagd', review: responseData })
+  } catch (error) {
+    console.error('Fel vid fetch till API:', error.message)
+    res.status(500).json({ message: 'Ett fel inträffade vid inskickning av recension.' })
+  }
+})
