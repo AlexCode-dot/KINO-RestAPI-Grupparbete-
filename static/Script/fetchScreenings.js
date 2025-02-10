@@ -13,10 +13,10 @@ fetch('/api/movies/screenings/next-five-days')
       document.querySelector('.screenings-list').innerHTML = screenings
         .map((screening) => {
           return `<li>
-          ${screening.movie.title} - 
-          Date: ${new Date(screening.start_time).toLocaleDateString()}, 
-          Time: ${new Date(screening.start_time).toLocaleTimeString()}, 
-          Room: ${screening.room || 'N/A'}
+          <strong>${screening.movie.title}</strong><br>
+          Datum: ${new Date(screening.start_time).toLocaleDateString()}<br> 
+          Tid: ${new Date(screening.start_time).toLocaleTimeString()}<br> 
+          Rum: ${screening.room || 'N/A'}
         </li>`
         })
         .join('')
