@@ -87,16 +87,13 @@
     visibility: visible;
     opacity: 0;
   }
-
   80% {
     opacity: 0.8;
   }
-
   100% {
     opacity: 1;
   }
 }
-
 @media (min-width: 350px) {
   body .celebration-modal_content {
     width: 50%;
@@ -106,17 +103,14 @@
     overflow-y: auto;
     overflow-x: auto;
   }
-
   .celebration-modal_rootcontainer {
     font-size: small;
   }
-
   .celebration-modal_content h1 {
     font-size: 1.2rem;
     text-align: center;
     animation: glow 2s ease-in-out infinite;
   }
-
   @keyframes glow {
     0% {
       text-shadow:
@@ -125,7 +119,6 @@
         0 0 15px #ff7e5f,
         0 0 20px #f9eee6;
     }
-
     50% {
       text-shadow:
         0 0 10px #fba38d,
@@ -133,7 +126,6 @@
         0 0 30px #ff7e5f,
         0 0 40px #f9eee6;
     }
-
     100% {
       text-shadow:
         0 0 5px #fba38d,
@@ -143,7 +135,6 @@
     }
   }
 }
-
 .footer {
   display: flex;
   flex-direction: row;
@@ -151,26 +142,22 @@
   height: 200px;
   padding: 20px;
 }
-
 @media (max-width: 600px) {
   .footer {
     flex-direction: column;
     height: auto;
   }
 }
-
 .footer__social {
   display: inline-block;
   justify-content: center;
   padding: 5px 15px 5px 15px;
 }
-
 .footer__social-twitter {
   display: inline-block;
   width: 30px;
   height: 30px;
 }
-
 .footer__social-twitter img {
   width: 100%;
   height: 100%;
@@ -179,18 +166,15 @@
     transform 0.3s,
     opacity 0.3s;
 }
-
 .footer__social-twitter img:hover {
   transform: scale(1.1);
   opacity: 0.8;
 }
-
 .footer__social-instagram {
   display: inline-block;
   width: 30px;
   height: 30px;
 }
-
 .footer__social-instagram img {
   width: 100%;
   height: 100%;
@@ -199,18 +183,15 @@
     transform 0.3s,
     opacity 0.3s;
 }
-
 .footer__social-instagram img:hover {
   transform: scale(1.1);
   opacity: 0.8;
 }
-
 .footer__social-youtube {
   display: inline-block;
   width: 30px;
   height: 30px;
 }
-
 .footer__social-youtube img {
   width: 100%;
   height: 100%;
@@ -219,18 +200,15 @@
     transform 0.3s,
     opacity 0.3s;
 }
-
 .footer__social-youtube img:hover {
   transform: scale(1.1);
   opacity: 0.8;
 }
-
 .footer__social-linkedin {
   display: inline-block;
   width: 30px;
   height: 30px;
 }
-
 .footer__social-linkedin img {
   width: 100%;
   height: 100%;
@@ -239,52 +217,41 @@
     transform 0.3s,
     opacity 0.3s;
 }
-
 .footer__social-linkedin img:hover {
   transform: scale(1.1);
   opacity: 0.8;
 }
-
 .footer__contact {
   display: inline-block;
   padding: 5px 15px 5px 15px;
 }
-
 .footer__contact-info {
   padding: 0 0 0 0;
   margin: 5px 0 5px 0;
 }
-
 .footer__contact-number {
   padding: 0 0 0 0;
   margin: 5px 0 5px 0;
 }
-
 .footer__contact-mail1 {
   padding: 0 0 0 0;
   margin: 5px 0 5px 0;
 }
-
 .footer__contact-mail2 {
   margin: 5px 0 5px 0;
 }
-
 .footer__find-Us {
   padding: 5px 15px 5px 15px;
 }
-
 .footer__find-Us-streetname {
   margin: 5px 0 5px 0;
 }
-
 .footer__find-Us-postalcode {
   margin: 5px 0 5px 0;
 }
-
 .footer__find-Us-country {
   margin: 5px 0 5px 0;
 }
-
 .footer__partners {
   padding: 5px 15px 5px 15px;
 }
@@ -310,7 +277,6 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
-
 .header__nav-list li {
   list-style: none;
   padding: 7px;
@@ -318,12 +284,10 @@
   border-radius: 5px;
   user-select: none;
 }
-
 .header__nav-list li:hover {
   background-color: #52b3d9;
   color: black;
 }
-
 .header__nav-list li a {
   text-decoration: none;
   color: inherit;
@@ -342,7 +306,6 @@ li.menu-active {
 .mobile__filter-menu {
   display: none;
 }
-
 @media only screen and (max-width: 800px) {
   .mobile__filter-menu {
     display: block;
@@ -356,7 +319,6 @@ li.menu-active {
     border-style: solid;
     border-radius: 5px;
   }
-
   .mobile__filter-menu:hover {
     color: #fff;
     background-color: #03658c;
@@ -370,7 +332,6 @@ li.menu-active {
   position: relative;
   margin-bottom: 30px;
 }
-
 @media only screen and (max-width: 800px) {
   .filter-btn__container {
     display: none;
@@ -396,7 +357,6 @@ li.menu-active {
   color: white;
   border: none;
 }
-
 @media only screen and (max-width: 800px) {
   .filter-btn {
     margin: 20px auto;
@@ -445,7 +405,6 @@ li.menu-active {
     right: 15px;
   }
 }
-
 .date__btn {
   color: white;
   background-color: #03658c;
@@ -512,7 +471,6 @@ li.menu-active {
   display: flex;
   flex-direction: column;
 }
-
 .movie a {
   text-decoration: none;
 }
@@ -572,13 +530,11 @@ li.menu-active {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (max-width: 768px) {
   .movie__wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 .movie__container {
   display: block;
   width: 50%;
@@ -677,7 +633,6 @@ li.menu-active {
   flex-direction: column;
   width: 100%;
 }
-
 .singleMovie__reviews h1 {
   margin: 40px auto 10px auto;
 }
@@ -768,26 +723,60 @@ li.menu-active {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
   margin-top: 20px;
-  font-family: verdana;
 }
-
 .singleMovie__addReviews h1 {
-  margin: auto;
-  margin-top: 50px;
-  font-size: 1.5rem;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .singleMovie__addReviewsContainer {
   width: 50%;
-  border: 1px solid #03658c;
+  border: 3px solid #03658c;
+  border-radius: 5px;
   margin: 20px auto 20px auto;
   height: 20rem;
-  resize: none;
+}
+
+.submit-button {
+  width: 100px;
+  height: 40px;
   font-size: 1rem;
-  border-radius: 8px;
-  padding: 8px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.rating-dropdown {
+  font-size: 20px;
+  color: #012840;
+  width: 110px;
+  margin: auto;
+  color: darkgoldenrod;
+}
+
+.review-textarea {
+  border-radius: 5px;
+  padding: 10px;
+  height: 20rem;
+  resize: none;
+  width: 50%;
+  border: 3px solid #03658c;
+  margin: 20px auto 20px auto;
+  font-size: 1rem;
+}
+
+.name-label {
+  display: inline;
+  width: 200px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.name-input {
+  width: 200px;
+  margin: auto;
+  display: inline;
 }
 
 .top-rated {
@@ -895,13 +884,11 @@ footer {
     padding-bottom: 2rem;
   }
 }
-
 @media (max-width: 799px) {
   body {
     padding: 0.5rem;
   }
 }
-
 .search__container {
   margin: auto;
   display: flex;
@@ -913,11 +900,9 @@ footer {
   font-weight: 600;
   font-size: 1.1rem;
 }
-
 .search__container .search__label {
   padding-bottom: 0.4rem;
 }
-
 .search__container .search__input {
   border-radius: 22px;
   padding-top: 0.5rem;
@@ -930,7 +915,6 @@ footer {
   border-color: lightgray;
   border-style: solid;
 }
-
 .search__container .search__clear {
   position: absolute;
   margin-left: 13.3rem;
