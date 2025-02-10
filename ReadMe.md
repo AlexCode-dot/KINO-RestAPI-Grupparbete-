@@ -344,13 +344,13 @@ async function displayAverageRating(movieId, debug) {
 
 ### 5. Hämta de närmaste filmvisningarna
 
-**Endpoint:** `GET /api/screenings/upcoming`
+**Endpoint:** `GET /api//movies/screenings/next-five-days`
 
-**Beskrivning:** Hämtar en lista över de 10 närmaste filmvisningarna.
+**Beskrivning:** Hämtar en lista över filmvisningar för följande 5 dagar, max 10 visningar.
 
 **Exempel på request:**
 
-GET /api/screenings/upcoming
+GET /api//movies/screenings/next-five-days
 
 **Exempel på respons (200 OK)**
 
