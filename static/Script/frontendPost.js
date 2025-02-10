@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rating: parseInt(rating),
       author: author,
     }
-
+    console.log('Event listener added')
     console.log(`Movie ID: ${movieID}`)
     try {
       console.log(`Skickar request till: /api/movies/${movieID}/reviews`)

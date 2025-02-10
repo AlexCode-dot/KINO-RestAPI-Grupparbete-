@@ -115,7 +115,7 @@ Content-Type: application/json
 
 ### 4. Hämta betyg för en film
 
-**Endpoint:** `GET /api/movies/:id/rating`
+**Endpoint:** `GET /api/movies/:movieId/rating`
 
 **Beskrivning:** Hämtar genomsnittsbetyg för en film.
 
@@ -133,8 +133,214 @@ GET /api/movies/3/rating
 
 **Logik**
 
-- Om filmen har minst 5 recensioner, räknas snittet ut från dessa.
-- Om färre än 5 recensioner finns, hämtas snittet från IMDB API.
+#### FetchAverageRating
+
+```json
+async function fetchAverageRating(movieId) {
+  const response = await fetch(`/api/movies/${movieId}/rating`)
+  const data = await response.json()
+  return data.averageRating
+}
+```
+
+- När filmsidan laddas kör en javascript fil fetchAverageRating.js som ber backend om ett genomsnittsbetyg från recensioner.
+- Javascript filen gör en GET (fetch) som skickas via apiRoutes.js till app.js.
+
+#### FetchAllReviews
+
+```json
+async function fetchAllReviews(movieId, cmsAdapter) {
+  let allReviews = []
+  let page = 1
+  const pageSize = 5
+  let hasMoreReviews = true
+
+  while (hasMoreReviews) {
+    console.log('Fetching reviews for movie:', movieId, 'page:', page)
+    const reviews = await cmsAdapter.loadReviewsForMovie(movieId, page, pageSize)
+    if (reviews.data.length > 0) {
+      allReviews = allReviews.concat(reviews.data)
+      page++
+    } else {
+      hasMoreReviews = false
+    }
+  }
+  return allReviews
+}
+```
+
+- Functionen fetchAllReviews som ligger i fetchOmdb.js hämtar alla reviews via parametrar movieId (som ger information vilken film det handlar om) och cmsAdapter (som hämtar reviews från loadReviews.js) och skickar vidare de till calculateAverageRating i calculateRatings.js.
+
+#### ApiRoutes
+
+```json
+export default function apiRoutes(api) {
+  router.get('/movies/top-rated', async (request, response, next) => {
+
+  router.get('/movies/:movieId/rating', async (request, response, next) => {
+    try {
+      const movieId = request.params.movieId
+      const averageRating = await calculateAverageRating(movieId, cmsAdapter, getTitle, getExtraReviews)
+      response.json({ averageRating })
+    } catch (err) {
+      next(err)
+    }
+  })
+  return router
+}
+```
+
+- Routen i apiRoutes.js kör calculateAverageRating och skickar med de parametrar som behövs, movieId, cmsAdapter, getTitle, getExtraReviews.)
+
+#### CalculateAverageRating
+
+```json
+export async function calculateAverageRating(movieId, cmsAdapter, getTitle, getExtraReviews) {
+  const reviews = await fetchAllReviews(movieId, cmsAdapter)
+
+  let ratings = reviews.map((review) => review.rating)
+  console.log('Initial ratings:', ratings)
+
+  const totalRatings = ratings.reduce((acc, rating) => acc + rating, 0)
+  let averageRating = ratings.length ? totalRatings / ratings.length : 0
+
+  const title = await getTitle(movieId)
+
+  if (ratings.length < 5 && title) {
+    // console.log(`Not enough reviews for movie ${title} number of reviews found `, ratings.length)
+    console.log(`Not enough reviews for movie`, title)
+    console.log(`Number of reviews found`, ratings.length)
+    const omdb = await getExtraReviews(movieId)
+    let newNumber = omdb / 2
+    console.log(omdb, ' Divided with 2 ', newNumber)
+    averageRating = newNumber
+  }
+  const debug = false
+  if (debug) {
+    console.log('This is the review section ', reviews)
+    console.log(`Reviews: ${ratings}`)
+    console.log(`Average rating for movie nr ${movieId} ${title} ${averageRating}`)
+    console.log('Average number is', averageRating.toFixed(1))
+  }
+  return averageRating
+}
+```
+
+**Om filmen har minst 5 recensioner, räknas snittet ut från dessa.**
+
+- Functionen calculateRatings kollar igenom recensioner och räknar ut genomsnittsbetyget.
+- functionen calculateRatings kör en function som heter getTitle för att få en titel.
+- Genomsnittsbetyget skickas till webbläsaren.
+
+**Om färre än 5 recensioner finns, hämtas snittet från OMDb API.**
+
+- Om det finns mindre än 5 recensioner och att det finns en titel körs en if-sats som meddelar att det inte finns tillräckligt med recensioner och kör en funktion som heter getExtraReviews.
+- Det nya genomsnittsbetyget som kommer tillbaka från getExtraReviews delas med 2 för att stämma med sidans 1-5 ratings istället för IMDb som har 1-10.
+- Det nya betyget skickas sedan från calculateRatings till webbläsaren
+
+#### GetTitle
+
+```json
+export async function getTitle(movieId) {
+  const movieurl = `https://plankton-app-xhkom.ondigitalocean.app/api/movies/${movieId}`
+  console.log('Fetching movie with ID:', movieId)
+  console.log(movieurl)
+  const response = await fetch(movieurl)
+  const data = await response.json()
+
+  if (!response.ok) {
+    console.error(`Error fetching data from API: ${data.message}`)
+    // return null
+  }
+
+  const title = data.data.attributes.title
+  console.log(`stored title: ${title}`)
+
+  return title
+}
+```
+
+- Funktionen getTitle som hämtas från fetchOmdb.js tar en parameter movieId och kör en fetch mot planktonapi med movieId som en parameter för att hämta filmens titel.
+
+#### GetExtraReviews
+
+```json
+export async function getExtraReviews(movieId) {
+  const movieurl = `https://plankton-app-xhkom.ondigitalocean.app/api/movies/${movieId}`
+  console.log('Fetching movie with ID:', movieId)
+  console.log(movieurl)
+
+  const response = await fetch(movieurl)
+  const data = await response.json()
+  const debug = false
+  if (!response.ok) {
+    console.error(`Error fetching data from API: ${data.message}`)
+  }
+  const imdb = data.data.attributes.imdbId
+
+  if (debug === true) {
+    console.log('Fetched movies data:', data)
+    console.log('getting imdb id:', data.data.attributes.imdbId)
+    console.log(`stored imdb: ${imdb}`)
+  }
+  const apiKey = 'apikey=a159d0a'
+  const externalApiUrl = `https://www.omdbapi.com/?${apiKey}&i=${imdb}`
+  const externalApiResponse = await fetch(externalApiUrl)
+  const omdb = await externalApiResponse.json()
+
+  const extraReview = omdb.imdbRating
+  const InternetMovieDatabase = omdb.Ratings[0]
+  const Metacritic = omdb.Ratings[1]
+  const Rottentomatos = omdb.Ratings[2]
+  const Metascore = omdb.Metascore
+  const runTime = omdb.Runtime
+
+  if (debug === true) console.log('the response data', omdb)
+  console.log(externalApiUrl)
+  console.log('Runtime', runTime)
+  console.log('Internet Movie Database', InternetMovieDatabase)
+  console.log('Metacritic', Metacritic)
+  console.log('Rotten Tomatoes', Rottentomatos)
+  console.log('this is what omdb is sending', extraReview)
+  return extraReview
+}
+
+export async function getTitle(movieId) {
+  const movieurl = `https://plankton-app-xhkom.ondigitalocean.app/api/movies/${movieId}`
+  console.log('Fetching movie with ID:', movieId)
+  console.log(movieurl)
+  const response = await fetch(movieurl)
+  const data = await response.json()
+
+  if (!response.ok) {
+    console.error(`Error fetching data from API: ${data.message}`)
+    // return null
+  }
+
+  const title = data.data.attributes.title
+  console.log(`stored title: ${title}`)
+
+  return title
+}
+```
+
+- Funktionen getExtraReviews tar med en parameter movieId som körs mot planktonapi för att få tag i filmens imdb id, detta körs sedan mot ett externt api (OMDb api) som skickar in filmens id och hämtar betyget om den filmen som skickas in till calculateRatings.
+
+#### DisplayAverageRating
+
+```json
+async function displayAverageRating(movieId, debug) {
+  const averageRating = await fetchAverageRating(movieId)
+  const ratingContainer = document.querySelector(`.singleMovie__main-rating`)
+  ratingContainer.textContent = `Snittbetyg: ${averageRating.toFixed(1)}`
+  if (debug === true) {
+    console.log('fetchAverageRating loaded')
+    console.log(ratingContainer.textContent)
+  }
+}
+```
+
+- Tar genomsnittsbetyget som den får tillbaka i webbläsaren och visar den för användaren.
 
 ### 5. Hämta de närmaste filmvisningarna
 
