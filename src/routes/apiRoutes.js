@@ -49,7 +49,6 @@ export default function apiRoutes(api) {
     }
   })
 
-  // Backend Router to get reviews based on a specific movie ID
   router.get('/movies/:id/reviews', async (req, res, next) => {
     const { id } = req.params
     const page = parseInt(req.query.page) || 1
@@ -77,3 +76,40 @@ export default function apiRoutes(api) {
 
   return router
 }
+router.post('/movies/:id/reviews', async (req, res) => {
+  try {
+    const { id: movieId } = req.params
+    const { comment, rating, author } = req.body
+
+    if (!comment || !rating || !author) {
+      return res.status(400).json({ message: 'Alla fält måste fyllas i.' })
+    }
+
+    const userReview = {
+      data: {
+        movie: movieId,
+        comment,
+        rating: parseInt(rating, 10),
+        author,
+      },
+    }
+
+    const API_URL = 'https://plankton-app-xhkom.ondigitalocean.app/api/reviews'
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userReview),
+    })
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`)
+    }
+
+    const responseData = await response.json()
+    res.status(201).json({ message: 'Recensionen är tillagd', review: responseData })
+  } catch (error) {
+    console.error('Fel vid fetch till API:', error)
+    res.status(500).json({ message: 'Ett fel inträffade vid inskickning av recension.' })
+  }
+})

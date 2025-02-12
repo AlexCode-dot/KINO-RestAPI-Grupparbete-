@@ -50,18 +50,31 @@
 <div class="singleMovie__addReviews">
   <h1>Skriv en recension</h1>
 
-  <select class="rating-dropdown">
-    <option>&#9733;</option>
-    <option>&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;&#9733;</option>
-    <option>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-  </select>
-  <label class="name-label">Ditt namn: </label>
-  <input text="text" class="name-input">
-  <textarea class="review-textarea" placeholder="Skriv din recension här"></textarea>
-  <button class="submit-button">Submit</button>
-  </div>
+  <form action="/submit-review" method="POST">
+    <div class="rating">
+      <label for="rating">Betyg: </label>
+      <select id="rating" name="rating" class="rating-dropdown">
+        <option value="1">&#9733;</option>
+        <option value="2">&#9733;&#9733;</option>
+        <option value="3">&#9733;&#9733;&#9733;</option>
+        <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+        <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+      </select>
+    </div>
+
+    <div class="name">
+      <label for="name" class="name-label">Ditt namn: </label>
+      <input type="text" id="name" name="name" class="name-input" required>
+    </div>
+
+    <div class="review">
+      <label for="review" class="review-label">Din recension: </label>
+      <textarea id="review" name="review" class="review-textarea" placeholder="Skriv din recension här" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-button">Skicka</button>
+  </form>
+</div>
 
 
 <script src="/static/script/fetchAverageRating.js"></script>
