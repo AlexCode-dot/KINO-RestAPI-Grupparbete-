@@ -6,6 +6,7 @@ import { calculateAverageRating } from '../services/calculateRatings.js'
 import screeningAdapter from '../services/fetchScreenings.js'
 import { getTitle } from '../services/fetchOmdb.js'
 import { getExtraReviews } from '../services/fetchOmdb.js'
+import { loadUserProfile } from '../services/loadUserProfile.js'
 
 const router = express.Router()
 
@@ -119,5 +120,14 @@ router.post('/movies/:id/reviews', async (req, res) => {
   } catch (error) {
     console.error('Fel vid fetch till API:', error.message)
     res.status(500).json({ message: 'Ett fel inträffade vid inskickning av recension.' })
+  }
+})
+
+router.get('/profile', async (req, res) => {
+  try {
+    const user = await loadUserProfile(1)
+    res.render('userprofile', { user })
+  } catch (error) {
+    res.status(500).send('Kunde inte ladda profilen')
   }
 })
