@@ -1,39 +1,12 @@
 import express from 'express'
-import session from 'express-session'
-import cookieParser from 'cookie-parser'
-import csurf from 'csurf'
-import dotenv from 'dotenv'
 import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
-import { loadUserProfile } from './services/loadUserProfile.js'
-
-dotenv.config()
 
 export default function initApp(api) {
   const app = express()
-
-  //Middleware
-  app.use(cookieParser())
-  app.use(
-    session({
-      secret: 'bananeripyjamas',
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: false }, //True if HTTPS
-    })
-  )
-
-  //Protection against CSRF
-  app.use(csurf({ cookie: true }))
-
-  //Middleware to send tokens to all templates
-  app.use((req, res, next) => {
-    res.locals.csrfToken = req.csrfToken()
-    next()
-  })
 
   app.engine('ejs', ejsMate)
   app.set('view engine', 'ejs')
@@ -44,8 +17,12 @@ export default function initApp(api) {
 
   //Route to membership profile
   app.get('/profile', (req, res) => {
-    const user = loadUserProfile(1) // Simulerad inloggad användare
-    res.render('userProfile', { user, csrfToken: res.locals.csrfToken })
+    const user = {
+      username: 'Rudolf',
+      email: 'rudolf@example.com',
+    }
+
+    res.render('profile', { user }) // Skicka user-objektet till EJS
   })
 
   app.post('/profile/update', (req, res) => {

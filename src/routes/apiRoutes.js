@@ -122,12 +122,3 @@ router.post('/movies/:id/reviews', async (req, res) => {
     res.status(500).json({ message: 'Ett fel inträffade vid inskickning av recension.' })
   }
 })
-
-router.get('/profile', async (req, res) => {
-  try {
-    const user = await loadUserProfile(1)
-    res.render('userprofile', { user })
-  } catch (error) {
-    res.status(500).send('Kunde inte ladda profilen')
-  }
-})

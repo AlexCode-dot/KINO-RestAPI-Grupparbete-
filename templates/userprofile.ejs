@@ -1,56 +1,36 @@
 <!DOCTYPE html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil Modal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-100 flex justify-center items-center h-screen">
-    <!-- Button to open modal -->
-    <button id="openModal" class="bg-blue-500 text-white px-4 py-2 rounded-md">Öppna Medlemsprofil</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Din Profil</title>
+<link rel="stylesheet" href="/static/style/tailwind.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
 
-    <!-- Modal initially hidden -->
-    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-      <div class="bg-white shadow-lg rounded-lg p-6 w-80">
-        <h2 class="text-xl font-bold mb-4">Profil</h2>
-        <p><strong>Namn:</strong> <%= user.name %></p>
-        <p><strong>E-post:</strong> <%= user.email %></p>
-        <p><strong>Telefon:</strong> <%= user.phone %></p>
+  <header class="w-full bg-blue-600 text-white text-center py-4">
+    <h1 class="text-2xl font-bold">Välkommen, <%= user.name %>!</h1>
+  </header>
 
-        <!-- Form to update information with protection AGAINST CSRF -->
-        <form action="/profile/update" method="POST" class="mt-4">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">Uppdatera uppgifter</button>
-        </form>
+  <main class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mt-6 mx-auto">
+    <h2 class="text-xl font-semibold mb-4">Din Profil</h2>
+    <p><strong>Namn:</strong> <%= user.name %></p>
+    <p><strong>E-post:</strong> <%= user.email %></p>
+    <div class="test">Test</div> 
 
-        <!-- Button to close modal-->
-        <button id="closeModal" class="mt-4 w-full bg-red-500 text-white py-2 rounded-md">Stäng</button>
-      </div>
-    </div>
+    <a href="/" class="block mt-4 w-full bg-red-500  text-white text-center py-2 rounded-md">
+        Gå till startsida
+      </a>
 
-    <script>
-      //Fetch modal element
-      const openModal = document.querySelector('#openModal')
-      const closeModal = document.querySelector('#closeModal')
-      const modal = document.querySelector('#modal')
+    <!-- Form för att uppdatera info -->
+    <form action="/profile/update" method="POST" class="mt-4">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">
+        Uppdatera uppgifter
+      </button>
+    </form>
 
-      //open button listener
-      openModal.addEventListener('click', () => {
-        modal.classList.remove('hidden')
-      })
+  </main>
 
-      //close button listener
-      closeModal.addEventListener('click', () => {
-        modal.classList.add('hidden')
-      })
-
-      //close modal when clicked
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.add('hidden')
-        }
-      })
-    </script>
-  </body>
+</body>
 </html>
