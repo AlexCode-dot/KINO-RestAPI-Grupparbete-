@@ -68,6 +68,14 @@ export default function initApp(api) {
     }
   })
 
+  app.get('/register', async (request, response, next) => {
+    try {
+      renderPage(response, 'registrera')
+    } catch (err) {
+      next(err)
+    }
+  })
+
   app.get('/loggain', async (request, response, next) => {
     try {
       renderPage(response, 'loggain')
