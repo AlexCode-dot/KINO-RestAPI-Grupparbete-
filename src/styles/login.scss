@@ -1,0 +1,40 @@
+.loginFirstDiv {
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    padding: 2rem;
+    text-align: center;
+  }
+}
+.loginSecondDiv {
+  padding: 4rem;
+  border-radius: 10px;
+  min-width: 80%;
+  font-weight: 800;
+  font-size: x-large;
+
+  hr {
+    border-width: 5px;
+    color: #ffff;
+    background-color: #ffff;
+  }
+
+  button {
+    font-size: x-large;
+    font-weight: 800;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    border-radius: 30px;
+  }
+}
+
+$theme-colors: (
+  'custom': #012840,
+  'primary': #03658c,
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';

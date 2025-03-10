@@ -1,2 +1,26 @@
 <% layout('layouts/main') %>
-logga in
+
+
+<div class="loginFirstDiv">
+    <h3>Medlemslogin</h3>
+    
+    <form class="loginSecondDiv bg-primary text-white">
+        <img src="../static/assets/images/icons/icons-google-signin.png">
+        <HR>
+        <div class="mb-3 bg-primary">
+        <label for="exampleInputEmail1" class="form-label">E-postadress eller användarnamn</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Fyll i e-postadress eller användarnamn" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Lösenord</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Ange lösenord">
+        </div>
+        <div class="d-flex justify-content-center">
+        
+        <button type="submit" class="btn btn-custom text-white">Logga in</button>
+        </div>
+
+        <p>Har du inte ett konto?<link href="null">Registrera dig</link></p>
+    </form>
+    
+</div>
