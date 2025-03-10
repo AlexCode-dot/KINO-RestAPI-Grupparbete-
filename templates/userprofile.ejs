@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Modal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex justify-center items-center h-screen">
-    <div class="bg-white shadow-md rounded-lg p-6 w-96">
-        <h1 class="text-xl font-bold text-center mb-4">Användarprofil</h1>
+  </head>
+  <body class="bg-gray-100 flex justify-center items-center h-screen">
+    <!-- Button to open modal -->
+    <button id="openModal" class="bg-blue-500 text-white px-4 py-2 rounded-md">Öppna Medlemsprofil</button>
+
+    <!-- Modal initially hidden -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+      <div class="bg-white shadow-lg rounded-lg p-6 w-80">
+        <h2 class="text-xl font-bold mb-4">Profil</h2>
         <p><strong>Namn:</strong> <%= user.name %></p>
-        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>E-post:</strong> <%= user.email %></p>
+        <p><strong>Telefon:</strong> <%= user.phone %></p>
+
+        <!-- Form to update information with protection AGAINST CSRF -->
+        <form action="/profile/update" method="POST" class="mt-4">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">Uppdatera uppgifter</button>
+        </form>
+
+        <!-- Button to close modal-->
+        <button id="closeModal" class="mt-4 w-full bg-red-500 text-white py-2 rounded-md">Stäng</button>
+      </div>
     </div>
-</body>
+
+    <script>
+      //Fetch modal element
+      const openModal = document.querySelector('#openModal')
+      const closeModal = document.querySelector('#closeModal')
+      const modal = document.querySelector('#modal')
+
+      //open button listener
+      openModal.addEventListener('click', () => {
+        modal.classList.remove('hidden')
+      })
+
+      //close button listener
+      closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden')
+      })
+
+      //close modal when clicked
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden')
+        }
+      })
+    </script>
+  </body>
 </html>

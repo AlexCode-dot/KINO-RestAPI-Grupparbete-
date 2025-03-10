@@ -1,16 +1,57 @@
 import express from 'express'
+import session from 'express-session'
+import cookieParser from 'cookie-parser'
+import csurf from 'csurf'
+import dotenv from 'dotenv'
 import ejsMate from 'ejs-mate'
 import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
+import { loadUserProfile } from './services/loadUserProfile.js'
+
+dotenv.config()
 
 export default function initApp(api) {
   const app = express()
 
+  //Middleware
+  app.use(cookieParser())
+  app.use(
+    session({
+      secret: 'bananeripyjamas',
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: false }, //True if HTTPS
+    })
+  )
+
+  //Protection against CSRF
+  app.use(csurf({ cookie: true }))
+
+  //Middleware to send tokens to all templates
+  app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken()
+    next()
+  })
+
   app.engine('ejs', ejsMate)
   app.set('view engine', 'ejs')
   app.set('views', './templates')
+
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.json())
+
+  //Route to membership profile
+  app.get('/profile', (req, res) => {
+    const user = loadUserProfile(1) // Simulerad inloggad användare
+    res.render('userProfile', { user, csrfToken: res.locals.csrfToken })
+  })
+
+  app.post('/profile/update', (req, res) => {
+    console.log('Medlemsinformation uppdaterad:', req.body)
+    res.redirect('/profile')
+  })
 
   app.get('/', async (request, response, next) => {
     try {
@@ -79,6 +120,14 @@ export default function initApp(api) {
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
 
+  // Route CSRF error
+  app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+      return res.status(403).json({ error: 'CSRF-verifiering misslyckades! Försök igen.' })
+    }
+    next(err)
+  })
+
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {
     const error = new Error('Detta är ett avsiktligt testfel.')
@@ -98,10 +147,7 @@ export default function initApp(api) {
     const status = err.status || 500
 
     if (request.originalUrl.startsWith('/api/')) {
-      return response.status(status).json({
-        error: 'Ett oväntat fel inträffade. Försök igen senare.',
-        status,
-      })
+      return response.status(status).json({ error: 'Ett oväntat fel inträffade. Försök igen senare.', status })
     }
     renderErrorPage(response, status, 'Tekniskt fel', 'Ett oväntat fel inträffade. Försök igen senare.')
   })

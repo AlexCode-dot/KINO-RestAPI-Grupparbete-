@@ -1,6 +1,8 @@
 export function loadUserProfile(userId) {
   return {
-    name: 'Ronja',
+    id: userId,
+    name: 'Ronja fagerdahl',
     email: 'ronja@example.com',
+    phone: '+46 000 000 000',
   }
 }
