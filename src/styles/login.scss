@@ -11,7 +11,8 @@
   border-radius: 10px;
 }
 h3 {
-  padding: 2rem;
+  padding: 3rem;
+  padding-top: 4rem;
   text-align: center;
 }
 
@@ -47,10 +48,17 @@ h3 {
   z-index: 2;
 }
 
+.invalid-feedback {
+  border-radius: 5px;
+  padding: 0.2rem;
+  padding-left: 0.5rem;
+}
+
 $theme-colors: (
   'custom': #012840,
   'primary': #03658c,
   'second': #52b3d9,
+  'third': #ff0000b3,
 );
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
