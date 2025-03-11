@@ -92,3 +92,69 @@ footer {
     display: flex;
   }
 }
+
+.registrationForm {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #03658c;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  label {
+    color: white;
+  }
+}
+
+.btn-primary {
+  background-color: #012840;
+
+  &:hover {
+    background-color: #52b3d9;
+    color: black;
+  }
+}
+
+.invalid-feedback {
+  color: white;
+  background-color: #ff0000b3;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+#togglePassword {
+  margin-top: 5px;
+}
+
+#registerPassword_label {
+  width: 100%;
+}
+
+.passwordStrength-weakest {
+  margin-top: 5px;
+  color: white;
+  background-color: #ff0000b3;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.passwordStrength-medium {
+  margin-top: 5px;
+  color: white;
+  background-color: #ff7b00b3;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.passwordStrength-strong {
+  margin-top: 5px;
+  color: white;
+  background-color: #096e00b3;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}

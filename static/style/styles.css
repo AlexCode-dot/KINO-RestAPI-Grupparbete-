@@ -24289,4 +24289,68 @@ footer {
   display: flex;
 }
 
+.registrationForm {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #03658c;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.registrationForm label {
+  color: white;
+}
+
+.btn-primary {
+  background-color: #012840;
+}
+.btn-primary:hover {
+  background-color: #52b3d9;
+  color: black;
+}
+
+.invalid-feedback {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.7019607843);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+#togglePassword {
+  margin-top: 5px;
+}
+
+#registerPassword_label {
+  width: 100%;
+}
+
+.passwordStrength-weakest {
+  margin-top: 5px;
+  color: white;
+  background-color: rgba(255, 0, 0, 0.7019607843);
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.passwordStrength-medium {
+  margin-top: 5px;
+  color: white;
+  background-color: rgba(255, 123, 0, 0.7019607843);
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.passwordStrength-strong {
+  margin-top: 5px;
+  color: white;
+  background-color: rgba(9, 110, 0, 0.7019607843);
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 2px;
+}
+
 /*# sourceMappingURL=styles.css.map */
