@@ -1,12 +1,12 @@
 <% layout('layouts/main') %>
 
-
-<div class="loginFirstDiv">
-    <h3>Medlemslogin</h3>
+<h3>Medlemslogin</h3>
+<div class="loginFirstDiv bg-primary">
     
+    <img src="../static/assets/images/icons/icons-google-signin.png">
+    <hr class="bg-white hr-custom">
     <form class="loginSecondDiv bg-primary text-white">
-        <img src="../static/assets/images/icons/icons-google-signin.png">
-        <HR>
+        
         <div class="mb-3 bg-primary">
         <label for="exampleInputEmail1" class="form-label">E-postadress eller användarnamn</label>
         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Fyll i e-postadress eller användarnamn" aria-describedby="emailHelp">
@@ -15,12 +15,16 @@
         <label for="exampleInputPassword1" class="form-label">Lösenord</label>
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Ange lösenord">
         </div>
-        <div class="d-flex justify-content-center">
-        
+        <a href="/forgotpassword" class="password text-second fs-6">Glömt lösenord?</a>
+        <div class="loginButtonDiv d-flex justify-content-center">
         <button type="submit" class="btn btn-custom text-white">Logga in</button>
         </div>
-
-        <p>Har du inte ett konto?<link href="null">Registrera dig</link></p>
+        <div class="d-flex justify-content-center">
+        <p>Har du inte ett konto?<a href="/register" class="text-second"> Registrera dig</a></p>
+        </div>
+        
     </form>
+
+    
     
 </div>
