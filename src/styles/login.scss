@@ -61,4 +61,8 @@ $theme-colors: (
   'third': #dc3545,
 );
 
+li {
+  display: none;
+}
+
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
