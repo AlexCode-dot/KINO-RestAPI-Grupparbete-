@@ -31,7 +31,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
-      "prettier --write"
+      "prettier --write",
+      "node -e \"setTimeout(() => {}, 1000)\""
     ]
   },
   "dependencies": {
