@@ -1,0 +1,64 @@
+.loginFirstDiv {
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  border-radius: 10px;
+}
+h3 {
+  padding: 3rem;
+  padding-top: 4rem;
+  text-align: center;
+}
+
+.loginSecondDiv {
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+  margin-top: -3rem;
+  min-width: 60%;
+  font-weight: 600;
+  font-size: large;
+  z-index: 1;
+
+  button {
+    font-size: large;
+    font-weight: 600;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    border-radius: 30px;
+  }
+
+  .loginButtonDiv {
+    padding: 1rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.hr-custom {
+  width: 80%;
+  height: 1.5px;
+  border: 0;
+  opacity: 1;
+  margin-top: 3rem;
+  z-index: 2;
+}
+
+.invalid-feedback {
+  border-radius: 5px;
+  padding: 0.2rem;
+  padding-left: 0.5rem;
+}
+
+$theme-colors: (
+  'custom': #012840,
+  'primary': #03658c,
+  'second': #52b3d9,
+  'third': #ff0000b3,
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
