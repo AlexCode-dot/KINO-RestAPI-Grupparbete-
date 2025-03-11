@@ -61,4 +61,13 @@ $theme-colors: (
   'third': #ff0000b3,
 );
 
+#loginMessage {
+  background-color: #ff0000b3;
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: none;
+}
+
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
