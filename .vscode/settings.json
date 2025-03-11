@@ -1,3 +1,6 @@
 {
-  "liveServer.settings.port": 5502
+  "liveServer.settings.port": 5502,
+  "css.validate": false,
+  "scss.validate": false,
+  "postcss.validate": false
 }

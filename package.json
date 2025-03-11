@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.12",
+    "@tailwindcss/postcss": "^4.0.13",
     "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
     "husky": "^8.0.0",
