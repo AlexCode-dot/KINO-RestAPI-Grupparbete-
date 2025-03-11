@@ -16,7 +16,6 @@
     <h2 class="text-xl font-semibold mb-4">Din Profil</h2>
     <p><strong>Namn:</strong> <%= user.name %></p>
     <p><strong>E-post:</strong> <%= user.email %></p>
-    <div class="test">Test</div> 
 
     <a href="/" class="block mt-4 w-full bg-red-500  text-white text-center py-2 rounded-md">
         Gå till startsida
@@ -24,7 +23,6 @@
 
     <!-- Form för att uppdatera info -->
     <form action="/profile/update" method="POST" class="mt-4">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">
         Uppdatera uppgifter
       </button>

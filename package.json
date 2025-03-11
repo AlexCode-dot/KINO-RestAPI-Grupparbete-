@@ -11,7 +11,7 @@
     "build-css": "sass src/styles/main.scss static/style/styles.css",
     "watch-css": "sass --watch src/styles/main.scss:static/style/styles.css",
     "build": "npm run build-css",
-    "build:css": "sass src/styles/tailwind.scss static/style/tailwind-temp.css && npx postcss static/style/tailwind-temp.css -o static/style/tailwind.css --verbose"
+    "build:css": "npx postcss src/styles/tailwind.css -o static/style/tailwind.css --verbose"
   },
   "keywords": [],
   "author": "",

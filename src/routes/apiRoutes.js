@@ -6,7 +6,6 @@ import { calculateAverageRating } from '../services/calculateRatings.js'
 import screeningAdapter from '../services/fetchScreenings.js'
 import { getTitle } from '../services/fetchOmdb.js'
 import { getExtraReviews } from '../services/fetchOmdb.js'
-import { loadUserProfile } from '../services/loadUserProfile.js'
 
 const router = express.Router()
 

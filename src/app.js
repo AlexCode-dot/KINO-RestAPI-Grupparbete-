@@ -4,6 +4,7 @@ import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
+import { loadUserProfile } from './services/loadUserProfile.js'
 
 export default function initApp(api) {
   const app = express()
@@ -17,12 +18,10 @@ export default function initApp(api) {
 
   //Route to membership profile
   app.get('/profile', (req, res) => {
-    const user = {
-      username: 'Rudolf',
-      email: 'rudolf@example.com',
-    }
-
-    res.render('profile', { user }) // Skicka user-objektet till EJS
+    // I ett riktigt projekt hämtar du t.ex. userId från sessionen
+    const userId = '123'
+    const user = loadUserProfile(userId) // Anropar funktionen som returnerar profilinformationen
+    res.render('profile', { user })
   })
 
   app.post('/profile/update', (req, res) => {
@@ -96,14 +95,6 @@ export default function initApp(api) {
   app.use(express.json())
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
-
-  // Route CSRF error
-  app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-      return res.status(403).json({ error: 'CSRF-verifiering misslyckades! Försök igen.' })
-    }
-    next(err)
-  })
 
   // Testfel route för 500
   app.get('/test-error', (request, response, next) => {
