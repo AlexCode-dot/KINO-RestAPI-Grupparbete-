@@ -47,6 +47,7 @@
           strengthFeedback.textContent = ''
           const passwordContainer = document.getElementById('password_Container')
           passwordContainer.classList.remove('was-validated')
+          window.location.href = '/loggain'
         }
       },
       false
