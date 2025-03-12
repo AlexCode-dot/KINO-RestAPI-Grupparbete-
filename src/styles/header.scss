@@ -1,15 +1,18 @@
 .header__logo {
   color: #ffff;
   background-color: #03658c;
-  padding: 0px 20px 0px 20px;
+  padding: 20px 20px 20px 20px;
   min-width: 800px;
   align-self: center;
   align-content: center;
   display: flex;
   justify-content: center;
+  font-size: 40px;
 }
 
 .header__nav {
+  padding-top: 20px;
+  padding-bottom: 5px;
   color: #ffff;
   background-color: #012840;
 }

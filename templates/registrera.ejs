@@ -1,0 +1,57 @@
+<% layout('layouts/main') %>
+<div class="registrationForm">
+  <form class="row g-3 needs-validation" novalidate>
+    <div class="col-md-4">
+      <label for="validationCustom01" class="form-label">Förnamn:</label>
+      <input type="text" class="form-control" id="register_firstName" value="" required />
+      <div class="invalid-feedback">Detta fält får inte lämnas tomt.</div>
+    </div>
+
+    <div class="col-md-4">
+      <label for="validationCustom02" class="form-label">Efternamn:</label>
+      <input type="text" class="form-control" id="register_lastName" value="" required />
+      <div class="invalid-feedback">Detta fält får inte lämnas tomt.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">E-Post:</label>
+      <input type="email" class="form-control" id="register_email" placeholder="namn@exempel.com" required />
+      <div class="invalid-feedback">Detta fält måste innehålla en giltlig e-post adress.</div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="validationCustom03" class="form-label">Användarnamn:</label>
+      <input type="text" class="form-control" id="register_username" pattern="^[a-zA-ZåäöÅÄÖ0-9\s]+$" minlength = "6" required />
+      <div class="invalid-feedback">Användarnamnet får enbart innehålla stora/små bokstäver samt siffror och måste vara minst 6 tecken.</div>
+    </div>    
+
+    <div class="mb-3" id = 'password_Container'>
+      <label for="validationCustom06" class="form-label" id = "registerPassword_label">Lösenord:</label>
+      <input type="password" class="form-control" id="register_password" required
+      pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{8,}$"/>
+      <div id="passwordStrength"></div>     
+      <div class="invalid-feedback">
+        Lösenordet måste vara minst 8 tecken, innehålla en liten samt en stor bokstav och ett specialtecken.
+      </div>
+      <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+        &#x1F441;
+      </button>
+    </div>
+
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
+        <label class="form-check-label" for="invalidCheck"
+          >Acceptera att Kvikkjokk Kino får hantera dina personuppgifter
+        </label>
+        <div class="invalid-feedback">Du måste acceptera innan du kan registrera medlemsskap.</div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Registrera</button>
+    </div>
+  </form>
+</div>
+
+<script type="module" src="/static/Script/registerMembership.js"></script>
