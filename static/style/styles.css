@@ -12399,6 +12399,19 @@ li.menu-active {
   color: black;
 }
 
+.profile-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #52b3d9;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-image: url('/static/assets/images/icons/white-profile.png');
+  background-size: cover;
+  background-position: center;
+  vertical-align: middle;
+}
+
 .mobile__filter-menu {
   display: none;
 }

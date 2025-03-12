@@ -20,3 +20,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     errorFeedback(error, moviesContainer)
   }
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname === '/profil') {
+    localStorage.setItem('isLoggedIn', 'true')
+  }
+
+  const loginNavItem = document.querySelector('.header__nav-list a[href="/loggain"]')
+
+  if (localStorage.getItem('isLoggedIn') === 'true' && loginNavItem) {
+    loginNavItem.textContent = 'DIN PROFIL'
+    loginNavItem.setAttribute('href', '/profil')
+
+    const profileIcon = document.createElement('span')
+    profileIcon.classList.add('profile-icon')
+
+    // Lägg till profilikonen före texten
+    loginNavItem.insertBefore(profileIcon, loginNavItem.firstChild)
+  }
+})
