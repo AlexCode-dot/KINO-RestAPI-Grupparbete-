@@ -19,6 +19,8 @@ loginForm.addEventListener('submit', (event) => {
     document.getElementById('loginMessage').style.display = 'none'
 
     const myModal = new bootstrap.Modal(document.getElementById('loggedInModal'))
+    const firstName = document.querySelector('.welcome-message')
+    firstName.textContent = `Välkommen ${matchedUser.firstName}, klicka "Gå vidare" för att komma igång!`
     myModal.show()
   } else {
     document.getElementById('loginMessage').style.display = 'block'
