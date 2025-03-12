@@ -4,7 +4,6 @@ import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
-import { loadUserProfile } from './services/loadUserProfile.js'
 
 export default function initApp(api) {
   const app = express()
@@ -18,9 +17,12 @@ export default function initApp(api) {
 
   //Route to membership profile
   app.get('/profile', (req, res) => {
-    // I ett riktigt projekt hämtar du t.ex. userId från sessionen
-    const userId = '123'
-    const user = loadUserProfile(userId) // Anropar funktionen som returnerar profilinformationen
+    const user = {
+      id: '123',
+      name: 'Ronja Fagerdahlllll',
+      email: 'ronja@example.com',
+    }
+
     res.render('profile', { user })
   })
 
