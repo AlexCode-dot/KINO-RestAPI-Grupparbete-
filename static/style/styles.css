@@ -13020,6 +13020,15 @@ h3,
   padding-left: 0.5rem;
 }
 
+#loginMessage {
+  background-color: rgba(255, 0, 0, 0.7019607843);
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: none;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors

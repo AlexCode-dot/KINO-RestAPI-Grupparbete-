@@ -17,5 +17,8 @@ export async function getTopRatedMoviesByRating(cmsAdapter, loadMovies) {
     }
   })
 
-  return moviesWithRatings.sort((a, b) => b.averageRating - a.averageRating).slice(0, 5)
+  return moviesWithRatings
+    .filter((movie) => movie !== null)
+    .sort((a, b) => b.averageRating - a.averageRating)
+    .slice(0, 5)
 }
