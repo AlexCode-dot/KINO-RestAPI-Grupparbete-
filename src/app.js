@@ -12,6 +12,9 @@ export default function initApp(api) {
   app.set('view engine', 'ejs')
   app.set('views', './templates')
 
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.json())
+
   app.get('/', async (request, response, next) => {
     try {
       await renderPage(response, 'hem')
@@ -83,6 +86,15 @@ export default function initApp(api) {
       next(err)
     }
   })
+
+  app.get('/profil', async (request, response, next) => {
+    try {
+      renderPage(response, 'profil')
+    } catch (err) {
+      next(err)
+    }
+  })
+
   app.use(express.json())
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
@@ -106,10 +118,7 @@ export default function initApp(api) {
     const status = err.status || 500
 
     if (request.originalUrl.startsWith('/api/')) {
-      return response.status(status).json({
-        error: 'Ett oväntat fel inträffade. Försök igen senare.',
-        status,
-      })
+      return response.status(status).json({ error: 'Ett oväntat fel inträffade. Försök igen senare.', status })
     }
     renderErrorPage(response, status, 'Tekniskt fel', 'Ett oväntat fel inträffade. Försök igen senare.')
   })
