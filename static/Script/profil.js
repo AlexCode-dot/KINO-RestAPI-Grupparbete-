@@ -11,6 +11,7 @@ if (logoutButton) {
   logoutButton.addEventListener('click', (event) => {
     event.preventDefault()
     localStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('loggedInUser')
     window.location.href = '/'
   })
 }

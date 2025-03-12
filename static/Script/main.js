@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('isLoggedIn', 'true')
   }
 
-  const loginNavItem = document.querySelector('.header__nav-list a[href="/loggain"]')
+  const loginNavItem = document.querySelector(
+    '.header__nav-list a[href="/loggain"], .header__nav-list a[href="/profil"]'
+  )
 
   if (localStorage.getItem('isLoggedIn') === 'true' && loginNavItem) {
     loginNavItem.textContent = 'DIN PROFIL'
@@ -34,8 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const profileIcon = document.createElement('span')
     profileIcon.classList.add('profile-icon')
-
-    // Lägg till profilikonen före texten
     loginNavItem.insertBefore(profileIcon, loginNavItem.firstChild)
   }
+
+  // Uppdatera aktivt menyobjekt dynamiskt
+  document.querySelectorAll('.header__nav-item').forEach((item) => {
+    item.classList.remove('menu-active')
+    if (item.querySelector(`a[href="${window.location.pathname}"]`)) {
+      item.classList.add('menu-active')
+    }
+  })
 })
