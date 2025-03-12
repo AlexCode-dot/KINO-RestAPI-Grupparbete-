@@ -4,7 +4,6 @@ import renderPage from './lib/renderPage.js'
 import { filmExists } from './services/fetchMovies.js'
 import { renderErrorPage } from './lib/errorHandler.js'
 import apiRoutes from './routes/apiRoutes.js'
-import { loadUserProfile } from './services/loadUserProfile.js'
 
 export default function initApp(api) {
   const app = express()
