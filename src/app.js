@@ -16,19 +16,6 @@ export default function initApp(api) {
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())
 
-  //Route to membership profile
-  app.get('/profile', (req, res) => {
-    // I ett riktigt projekt hämtar du t.ex. userId från sessionen
-    const userId = '123'
-    const user = loadUserProfile(userId) // Anropar funktionen som returnerar profilinformationen
-    res.render('profile', { user })
-  })
-
-  app.post('/profile/update', (req, res) => {
-    console.log('Medlemsinformation uppdaterad:', req.body)
-    res.redirect('/profile')
-  })
-
   app.get('/', async (request, response, next) => {
     try {
       await renderPage(response, 'hem')
@@ -92,6 +79,15 @@ export default function initApp(api) {
       next(err)
     }
   })
+
+  app.get('/profil', async (request, response, next) => {
+    try {
+      renderPage(response, 'profil')
+    } catch (err) {
+      next(err)
+    }
+  })
+
   app.use(express.json())
   app.use('/api', apiRoutes(api))
   app.use('/static', express.static('./static'))
